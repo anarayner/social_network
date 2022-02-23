@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken')
 const tokenModel = require('../models/Token')
+require('dotenv').config()
+
 class TokenService{
      generateToken(payload){
          const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {expiresIn: '30m'})
@@ -25,6 +27,29 @@ class TokenService{
          const tokenData = await tokenModel.deleteOne({refreshToken})
          return tokenData
      }
+
+     async findToken(refreshToken){
+        const tokenData = await tokenModel.findOne({refreshToken})
+        return tokenData
+     }
+
+     validateAccessToken(token){
+         try {
+             const tokenData = jwt.verify (token, process.env.JWT_ACCESS_SECRET)
+             return tokenData
+         } catch (e) {
+             return null
+         }
+     }
+
+    validateRefreshToken(token){
+        try {
+            const tokenData = jwt.verify (token, process.env.JWT_REFRESH_SECRET)
+            return tokenData
+        } catch (e) {
+            return null
+        }
+    }
 }
 
 module.exports = new TokenService();
