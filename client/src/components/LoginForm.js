@@ -1,3 +1,4 @@
+import React, {useState} from 'react'
 import {
     Box, Button, Card,
     CssBaseline, Divider,
@@ -5,10 +6,13 @@ import {
     TextField,
     Typography
 } from '@mui/material';
+import {login} from '../actions/login';
 
+export default function LoginForm(){
 
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
-const Login = () => {
     return (
                <Card sx={{
                    maxWidth: { xs: 400, lg: 550 },
@@ -44,6 +48,8 @@ const Login = () => {
                                label="Email Address"
                                name="email"
                                autoFocus
+                               value={email}
+                               onChange={e=>setEmail(e.target.value)}
                            />
                            <TextField
                                margin="normal"
@@ -53,6 +59,8 @@ const Login = () => {
                                label="Password"
                                type="password"
                                id="password"
+                               value={password}
+                               onChange={e=>setPassword(e.target.value)}
                            />
 
                            <Button
@@ -62,6 +70,7 @@ const Login = () => {
                                color="primary"
                                sx={{ mt: 3, mb: 2}}
                                style={{ height: 50}}
+                               onClick={()=>login(email, password)}
                            >
                                Sign In
                            </Button>
@@ -72,12 +81,20 @@ const Login = () => {
                            </Grid>
                            <Grid item xs={12} >
                                <Grid item container direction="column" alignItems="center" xs={12}>
-                                   <Typography
-                                       variant="subtitle1"
-                                       sx={{ textDecoration: 'none' }}
+                                   <Link
+                                       component="button"
+                                       variant="body2"
+                                       onClick={() => {
+                                           console.info("I'm a button.");
+                                       }}
                                    >
-                                       Don&apos;t have an account?
-                                   </Typography>
+                                       <Typography
+                                           variant="subtitle1"
+                                           sx={{ textDecoration: 'none' }}
+                                       >
+                                           Don&apos;t have an account?
+                                       </Typography>
+                                   </Link>
                                </Grid>
                            </Grid>
                        </Box>
@@ -86,5 +103,4 @@ const Login = () => {
     );
 };
 
-export default Login;
 

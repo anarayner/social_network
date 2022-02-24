@@ -5,14 +5,20 @@ const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose')
 const router = require('./router/index')
 const errorMiddleware = require('./middleware/errorMiddleware')
+const corsMiddleware = require('./middleware/corsMiddlewares')
 
 
 const PORT = process.env.PORT || 9000
 const app = express()
 
+app.use(corsMiddleware)
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors())
+app.use(cors({
+    credential: true,
+    origin: process.env.CLIENT_URL
+    }
+))
 app.use('/api', router)
 app.use(errorMiddleware)
 

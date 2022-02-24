@@ -1,10 +1,12 @@
-import {Box, Grid} from '@mui/material';
-import Login from '../components/Login';
+import {Grid} from '@mui/material';
+import LoginForm from '../components/LoginForm';
 import TopBar from '../components/TopBar';
-import Logo from '../../src/assets/images/icons/Logo.svg'
-import MediaControlCard from '../components/Logo';
+import LogoCard from '../components/Logo';
+import RegistrationForm from '../components/RegistrationForm';
 
 const AuthPage = () => {
+
+
     return (
     <>
         <Grid container direction='column' justifyContent='center' >
@@ -20,9 +22,7 @@ const AuthPage = () => {
                     justifyContent="center"
                     marginTop={4}
                 >
-
-                    <MediaControlCard/>
-
+                    <LogoCard/>
                 </Grid>
             </Grid>
             <Grid item xs={6}  display='flex' >
@@ -33,10 +33,9 @@ const AuthPage = () => {
                     alignItems="center"
                     justifyContent="center"
                     style={{ minHeight: '90vh' }}
-
                 >
                     <Grid item xs={8} md={3}>
-                        <Login/>
+                        <RegistrationForm/>
                     </Grid>
                 </Grid>
             </Grid>
