@@ -3,6 +3,12 @@ import LoginForm from '../components/LoginForm';
 import TopBar from '../components/TopBar';
 import LogoCard from '../components/Logo';
 import RegistrationForm from '../components/RegistrationForm';
+import RegistrationForm2 from '../components/RegistrationForm2';
+
+import AuthFormWrapper from '../components/AuthFormWrapper';
+
+
+
 
 const AuthPage = () => {
 
@@ -25,20 +31,9 @@ const AuthPage = () => {
                     <LogoCard/>
                 </Grid>
             </Grid>
-            <Grid item xs={6}  display='flex' >
-                <Grid
-                    container
-                    spacing={0}
-                    direction="column"
-                    alignItems="center"
-                    justifyContent="center"
-                    style={{ minHeight: '90vh' }}
-                >
-                    <Grid item xs={8} md={3}>
-                        <RegistrationForm/>
-                    </Grid>
-                </Grid>
-            </Grid>
+                 <AuthFormWrapper>
+                     <RegistrationForm2/>
+                 </AuthFormWrapper>
             </Grid>
 
         </Grid>
