@@ -1,16 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {AppBar, Button, Toolbar, Typography} from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Logo from '../assets/images/icons/Logo.svg'
 import {LOGIN_ROUTE, REGISTRATION_ROUTE} from '../util/consts';
 import {useLocation, useNavigate} from 'react-router-dom';
+import {observer} from 'mobx-react-lite';
+import {Context} from '../index';
 
 
-const TopBar = () => {
-    const navigate = useNavigate()
-    const location = useLocation()
-    const isLogin = location.pathname ===LOGIN_ROUTE
-
+const HomeTopBar = () => {
+    const {store} = useContext(Context)
 
     return (
         <>
@@ -30,15 +29,10 @@ const TopBar = () => {
                 </IconButton>
                 <Typography variant='h4' noWrap sx={{flexGrow: 1}}>UNION</Typography>
                     <nav>
-                        <Button  variant={!isLogin?'contained':'outlined'} sx={{ my: 1, mx: 1.5 }}
-                                onClick={()=> navigate(REGISTRATION_ROUTE)}
+                        <Button  variant='outlined' sx={{ my: 1, mx: 1.5 }}
+                                onClick={()=> store.logout()}
                         >
-                            Sign Up
-                        </Button>
-                        <Button  variant={!isLogin?'outlined':'contained'} sx={{ my: 1, mx: 1.5 }}
-                                onClick={()=> navigate(LOGIN_ROUTE)}
-                        >
-                            Sign In
+                            Log out
                         </Button>
                     </nav>
             </Toolbar>
@@ -47,4 +41,4 @@ const TopBar = () => {
     );
 };
 
-export default TopBar;
+export default observer(HomeTopBar);

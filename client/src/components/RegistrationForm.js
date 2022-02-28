@@ -5,16 +5,25 @@ import {
     TextField,
     Typography
 } from '@mui/material';
-import {useContext, useState} from 'react';
+import {useContext} from 'react';
 import {Context} from '../index';
+import useForm from '../hooks/useForm';
+import validate from '../hooks/formInputValidator';
+import {LOGIN_ROUTE, REGISTRATION_ROUTE} from '../util/consts';
+import {NavLink, useNavigate} from 'react-router-dom';
 
 export default function RegistrationForm(){
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
     const {store} = useContext(Context);
-    const handleSubmit = (e)=> {
-        e.preventDefault();
+    const {
+        values,
+        errors,
+        handleChange,
+        handleSubmit,
+    } = useForm(register, validate);
+
+    function register (){ store.registration(values.email, values.password)
+    console.log(values.email, values.password)
     }
 
     return (
@@ -55,8 +64,11 @@ export default function RegistrationForm(){
                         name="email"
                         autoFocus
                         autoComplete="email"
-                        value={email}
-                        onChange={e=>setEmail(e.target.value)}
+                        value={values.email || ''}
+                        onChange={handleChange}
+                        error={Boolean(errors?.email)}
+                        helperText={(errors?.email)}
+
                     />
                     <TextField
                         margin="normal"
@@ -67,8 +79,10 @@ export default function RegistrationForm(){
                         type="password"
                         id="password"
                         autoComplete="current-password"
-                        value={password}
-                        onChange={e=>setPassword(e.target.value)}
+                        value={values.password || ''}
+                        onChange={handleChange}
+                        error={Boolean(errors?.password)}
+                        helperText={(errors?.password)}
                     />
 
                     <Button
@@ -78,8 +92,6 @@ export default function RegistrationForm(){
                         color="primary"
                         sx={{ mt: 3, mb: 2}}
                         style={{ height: 50}}
-                        onClick={()=>
-                            store.registration(email, password)}
                     >
                         Sign up
                     </Button>
@@ -98,12 +110,15 @@ export default function RegistrationForm(){
                                     console.info("I'm a button.");
                                 }}
                             >
+                                <NavLink to={LOGIN_ROUTE}>
+
                                 <Typography
                                     variant="subtitle1"
                                     sx={{ textDecoration: 'none' }}
                                 >
-                                    Don&apos;t have an account?
+                                    Already have an account?
                                 </Typography>
+                                </NavLink>
                             </Link>
                         </Grid>
                     </Grid>

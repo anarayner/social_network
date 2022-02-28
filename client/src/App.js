@@ -1,38 +1,21 @@
 import React from 'react';
-import LoginForm from './components/LoginForm';
-import { createTheme,ThemeProvider } from '@mui/material/styles';
-import {Container, CssBaseline} from '@mui/material';
-import Navbar from './components/TopBar'
-import AuthPage from './pages/AuthPage';
-
-
-const theme = createTheme({
-    palette: {
-        primary: {
-            main : '#5855D6'
-        },
-        secondary: {
-            main : '#333269'
-        },
-        background: {
-            default: '#E5E5E5'
-        }
-    },
-    typography: {
-        fontFamily: 'Poppins',
-        fontWeightRegular: 400,
-        fontWeightMedium: 500,
-        fontWeightBold: 700,
-    }
-})
+import {ThemeProvider} from '@mui/material/styles';
+import theme from './theme/index'
+import {BrowserRouter} from 'react-router-dom';
+import AppRouter from './components/AppRoutes';
+import {observer} from 'mobx-react-lite';
+import AlertDialog from './components/AlertDialog';
 
 function App() {
+
   return (
+      <BrowserRouter>
       <ThemeProvider theme={theme}>
-          <CssBaseline/>
-          <AuthPage/>
+          <AlertDialog/>
+          <AppRouter/>
       </ThemeProvider>
+      </BrowserRouter>
   );
 }
 
-export default App;
+export default observer(App);

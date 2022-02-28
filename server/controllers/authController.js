@@ -25,7 +25,7 @@ class AuthController {
         try {
             const activationLink = req.params.link
             await userService.activation(activationLink)
-            return res.redirect('https://www.google.com/')
+            return res.redirect('http://localhost:3000/api/home/user')
         } catch (e) {
             next(e)
         }

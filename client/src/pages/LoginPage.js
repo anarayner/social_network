@@ -2,16 +2,10 @@ import {Grid} from '@mui/material';
 import LoginForm from '../components/LoginForm';
 import TopBar from '../components/TopBar';
 import LogoCard from '../components/Logo';
-import RegistrationForm from '../components/RegistrationForm';
-import RegistrationForm2 from '../components/RegistrationForm2';
-
 import AuthFormWrapper from '../components/AuthFormWrapper';
+import {observer} from 'mobx-react-lite';
 
-
-
-
-const AuthPage = () => {
-
+const LoginPage = () => {
 
     return (
     <>
@@ -32,7 +26,7 @@ const AuthPage = () => {
                 </Grid>
             </Grid>
                  <AuthFormWrapper>
-                     <RegistrationForm2/>
+                     <LoginForm/>
                  </AuthFormWrapper>
             </Grid>
 
@@ -41,4 +35,4 @@ const AuthPage = () => {
     );
 };
 
-export default AuthPage;
+export default observer(LoginPage);
