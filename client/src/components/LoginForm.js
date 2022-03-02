@@ -71,7 +71,6 @@ function RegistrationForm(){
                         onChange={handleChange}
                         error={Boolean(errors?.email)}
                         helperText={(errors?.email)}
-
                     />
                     <TextField
                         margin="normal"

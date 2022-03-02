@@ -1,6 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import Button from '@mui/material/Button';
-import {Dialog, DialogActions, DialogContent, DialogContentText} from '@mui/material';
+import {Fade, Snackbar} from '@mui/material';
 import {Context} from '../index';
 import {observer} from 'mobx-react-lite';
 
@@ -14,40 +13,36 @@ function AlertDialog() {
             store.checkAuth()
         }
     },[])
-    const [open, setOpen] = React.useState (true);
 
-    const handleClickOpen = () => {
-        setOpen (true);
-    };
-
+    const [state, setState] = React.useState({
+        open: true,
+        Transition: Fade,
+        vertical: 'top',
+        horizontal: 'right',
+    });
     const handleClose = () => {
-        setOpen (false);
+        setState({ ...state, open: false });
     };
     return (
         <>
+            {store.isAuth?
+                <Snackbar
+                    open={state.open}
+                    onClose={handleClose}
+                    TransitionComponent={state.Transition}
+                    message="User is authorized"
+                    key={state.Transition.name}
+                />
+                :
+                <Snackbar
+                    open={state.open}
+                    onClose={handleClose}
+                    TransitionComponent={state.Transition}
+                    message="User is not authorized"
+                    key={state.Transition.name}
+                />
 
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogContent>
-                    {store.isAuth?
-                        <DialogContentText id="alert-dialog-description">
-                            User is authorized
-                        </DialogContentText>
-                        :
-                        <DialogContentText id="alert-dialog-description">
-                            User is not authorized
-                        </DialogContentText>
-                    }
-
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Close</Button>
-                </DialogActions>
-            </Dialog>
+            }
         </>
 
     );

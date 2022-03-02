@@ -6,6 +6,9 @@ const mongoose = require('mongoose')
 const router = require('./router/index')
 const errorMiddleware = require('./middleware/errorMiddleware')
 const corsMiddleware = require('./middleware/corsMiddlewares')
+const path = require ('path');
+const fileUpload = require('express-fileupload')
+
 
 
 const PORT = process.env.PORT || 9000
@@ -19,6 +22,8 @@ app.use(cors({
     origin: process.env.CLIENT_URL
     }
 ))
+app.use(express.static(path.resolve(__dirname, 'static')))
+app.use(fileUpload({}))
 app.use('/api', router)
 app.use(errorMiddleware)
 

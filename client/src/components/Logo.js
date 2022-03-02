@@ -4,11 +4,14 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Logo from '../assets/images/icons/Logo.svg'
 import {Container} from '@mui/material';
-
+import theme from '../theme/index'
 
 export default function LogoCard() {
     return (
-        <Container maxWidth={'xs'} sx={{ display: 'flex', backgroundColor: '#E5E5E5', border: 'none'}}>
+        <Container maxWidth={'xs'}
+                   sx={{ display: 'flex',
+                       backgroundColor: theme.palette.background.default,
+                       border: 'none'}}>
             <img src={Logo} alt="logo" width={150} height={150}  />
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>
