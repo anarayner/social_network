@@ -55,13 +55,23 @@ const HomeTopBar = () => {
                 </SearchComponent>
                 <Box sx={{ flexGrow: 1 }} />
                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                    <IconButton size="large" aria-label="show 4 new mails" color='primary'>
+                    <IconButton
+                                aria-label="show 4 new mails"
+                                sx={{backgroundColor: theme.palette.primary.main,
+                                    color: theme.palette.common.white,
+                                    mr:2
+
+                                }}>
                         <Badge badgeContent={4} color="error">
                             <MailIcon />
                         </Badge>
                     </IconButton>
-                    <IconButton size="large" aria-label="show 4 new mails" color='primary'>
-                        <Badge badgeContent={17} color="error">
+                    <IconButton
+                                aria-label="show 4 new mails"
+                                sx={{backgroundColor: theme.palette.primary.main,
+                                    color: theme.palette.common.white,
+                                   }}>
+                        <Badge badgeContent={17} color="error" >
                             <NotificationsIcon />
                         </Badge>
                     </IconButton>
