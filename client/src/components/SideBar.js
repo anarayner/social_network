@@ -1,35 +1,33 @@
 import React from 'react';
-import {Box, List, ListItem, ListItemIcon, ListItemText, Typography} from '@mui/material';
+import {alpha, Box, List, ListItem, ListItemIcon, ListItemText, Typography} from '@mui/material';
 import theme from '../theme';
 import IconButton from '@mui/material/IconButton';
 import Logo from '../assets/images/icons/Logo.svg';
 import MailIcon from '@mui/icons-material/Mail';
+import {styled} from '@mui/system';
+const SideBar = styled(Box,{})({
+    position: 'unset'
+});
+
+const Wrapper = styled('div',{})({
+});
+
 
 const Sidebar = () => {
     return (
-        <>
-        <Box
+        <Wrapper>
+        <SideBar
             sx={{display: { xs: 'none', md: 'flex' },
                 alignItems: 'center',
                 backgroundColor: theme.palette.secondary.main,
                 justifyContent: 'center',
-                pt: 1
+                pt: 1,
 
             }}>
-            <IconButton
-                size="large"
-                edge="start"
-                color="primary"
-                aria-label="menu"
-                sx={{ mr: 1,}}
-            >
-                <img src={Logo} alt="logo" width={40} height={40}  />
-            </IconButton>
-            <Typography variant='h4' sx={{color: theme.palette.background.default}}>UNION</Typography>
-        </Box>
-    <Box
-        sx={{backgroundColor: theme.palette.secondary.main,
-            height: '100vh',
+
+        </SideBar>
+    <SideBar
+        sx={{backgroundColor: theme.palette.secondary.main, height: '92.05vh',    position: 'fixed'
         }}
         role="presentation"
     >
@@ -43,8 +41,8 @@ const Sidebar = () => {
                 </ListItem>
             ))}
         </List>
-    </Box>
-        </>
+    </SideBar>
+        </Wrapper>
     );
 };
 

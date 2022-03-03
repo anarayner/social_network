@@ -7,13 +7,14 @@ const UserInfo = () => {
     return (
         <Box sx={{
             backgroundColor: '#fff',
-            m: 3,
+            mr: 3, ml: 3,
             mt: 7,
             borderRadius: 2,
             height: 200,
+            boxShadow: 1
         }}>
             <Grid container direction='row'>
-                <Grid item xs={3}>
+                <Grid item xs={1} md={3}>
                     <Box sx={{
                         height: 200,
                         width: 200,

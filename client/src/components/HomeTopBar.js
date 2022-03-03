@@ -9,9 +9,6 @@ import theme from '../theme/index'
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
-
-
-
 const SearchComponent = styled('div',{})({
     display: 'flex',
     textAlign: 'center',
@@ -39,11 +36,20 @@ const HomeTopBar = () => {
 
     return (
         <AppBar
-            position='static'
+            position='sticky'
             color='secondary'
         >
             <Toolbar sx={{flexWrap: 'wrap', backgroundColor: '#fff'}} >
-
+                <IconButton
+                    size="large"
+                    edge="start"
+                    color="primary"
+                    aria-label="menu"
+                    sx={{ mr: 1,}}
+                >
+                    <img src={Logo} alt="logo" width={40} height={40}  />
+                </IconButton>
+                <Typography variant='h4' sx={{color: theme.palette.background.default}}>UNION</Typography>
                 <SearchComponent>
                     <SearchIconWrapper>
                 <Search sx={{color: '#2a2727'}}/>
