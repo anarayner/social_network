@@ -3,7 +3,7 @@ import AuthService from '../services/AuthService';
 import axios from 'axios';
 import {API_URL_CONST} from '../http';
 
-export default class Store{
+export default class userStore{
     _isAuth = false;
     _user = {};
     constructor() {
@@ -25,7 +25,7 @@ export default class Store{
 
     async login(email, password){
         try{
-            console.log('response')
+            console.log(response)
             const response = await AuthService.login(email, password)
             console.log(response)
             localStorage.setItem('token', response.data.accessToken)
@@ -38,7 +38,7 @@ export default class Store{
 
     async registration(email, password){
         try{
-            console.log('response')
+            console.log(response)
             const response = await AuthService.registration(email, password)
             console.log(response.data)
             localStorage.setItem('token', response.data.accessToken)
@@ -61,7 +61,7 @@ export default class Store{
     }
     async checkAuth(){
         try{
-            const response = await axios.get(`${API_URL_CONST}/auth/refresh`, {withCredentials: true})
+            const response = await axios.get(`${API_URL_CONST}/user/refresh`, {withCredentials: true})
             console.log(response)
             localStorage.setItem('token', response.data.accessToken)
             this.setIsAuth(true)

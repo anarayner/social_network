@@ -7,7 +7,7 @@ import RegistrationPage from './pages/RegistrationPage';
 
 export const authRoutes =[
     {path: HOME_ROUTE, element: <HomePage/>},
-    {path: "*", element: <LoginPage/>}
+    {path: "*", element: <HomePage/>}
 ]
 
 export const publicRoutes =[

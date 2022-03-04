@@ -7,18 +7,16 @@ const UserInfo = () => {
     return (
         <Box sx={{
             backgroundColor: '#fff',
-            mr: 3, ml: 3,
-            mt: 7,
             borderRadius: 2,
-            height: 200,
-            boxShadow: 1
+            boxShadow: 1,
+            mt:5, p: 2
         }}>
-            <Grid container direction='row'>
-                <Grid item xs={1} md={3}>
+            <Grid container spacing={3} direction='row'>
+                <Grid item sm={12} md={3}>
                     <Box sx={{
-                        height: 200,
-                        width: 200,
-                        mt: -5, ml: 1,
+                        height: 150,
+                        width: 150,
+                        mt: -5,
                         border: 1,
                         borderColor: '#930505',
                         borderRadius: 100,
@@ -30,25 +28,24 @@ const UserInfo = () => {
                         <Avatar
                             alt="Cindy Baker"
                             src="/static/images/avatar/3.jpg"
-                            sx={{height: 170, width: 170}}
+                            sx={{height: 135, width: 135}}
+
                         />
                     </Box>
                 </Grid>
-                <Grid item xs={6}>
-                    <Box sx={{pt:3, pr:2}}>
+                <Grid item xs={12} md={6}>
+                    <Box >
                         <Typography variant="h5"  >
                             Name
                         </Typography>
                         <Divider sx={{pt:1, mb: 1}} />
-                        <Typography variant="body2" sx={{
-                            mt:1
-                        }}>
+                        <Typography variant="body2" sx={{mt:1}}>
                             City
                         </Typography>
                     </Box>
                 </Grid>
-                <Grid item xs={3}>
-                    <Box sx={{p:3}}>
+                <Grid item xs={12} md={3}>
+                    <Box>
                         <Button
                             type="submit"
                             fullWidth

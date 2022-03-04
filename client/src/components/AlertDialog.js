@@ -6,11 +6,11 @@ import {observer} from 'mobx-react-lite';
 
 function AlertDialog() {
 
-    const {store} = useContext(Context)
+    const {user} = useContext(Context)
 
     useEffect(()=>{
         if(localStorage.getItem('token')){
-            store.checkAuth()
+            user.checkAuth()
         }
     },[])
 
@@ -25,7 +25,7 @@ function AlertDialog() {
     };
     return (
         <>
-            {store.isAuth?
+            {user.isAuth?
                 <Snackbar
                     open={state.open}
                     onClose={handleClose}

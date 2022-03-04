@@ -19,7 +19,7 @@ class UserService{
         const activationLink = uuid.v4()
         const user = await UserModel.create({email, password: hashPassword, activationLink})
         try {
-            await emailService.sendActivationEmail(email, `${process.env.API_URL}/api/auth/activate/${activationLink}`)
+            await emailService.sendActivationEmail(email, `${process.env.API_URL}/api/user/activate/${activationLink}`)
             }catch(e){
             console.log(e.message)
         }

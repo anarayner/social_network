@@ -2,9 +2,9 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import Logo from '../assets/images/icons/Logo.svg'
+import Logo from '../../assets/images/icons/Logo.svg'
 import {Container} from '@mui/material';
-import theme from '../theme/index'
+import theme from '../../theme'
 
 export default function LogoCard() {
     return (

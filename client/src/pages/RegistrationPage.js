@@ -1,8 +1,8 @@
 import {Grid} from '@mui/material';
-import TopBar from '../components/TopBar';
-import LogoCard from '../components/Logo';
-import AuthFormWrapper from '../components/AuthFormWrapper';
-import RegistrationForm from '../components/RegistrationForm';
+import TopBar from '../components/login/TopBar';
+import LogoCard from '../components/login/Logo';
+import AuthFormWrapper from '../components/login/AuthFormWrapper';
+import RegistrationForm from '../components/login/RegistrationForm';
 
 const RegistrationPage = () => {
     return (

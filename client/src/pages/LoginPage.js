@@ -1,9 +1,9 @@
 import {Grid} from '@mui/material';
-import LoginForm from '../components/LoginForm';
-import TopBar from '../components/TopBar';
-import LogoCard from '../components/Logo';
-import AuthFormWrapper from '../components/AuthFormWrapper';
+import TopBar from '../components/login/TopBar';
+import LogoCard from '../components/login/Logo';
+import AuthFormWrapper from '../components/login/AuthFormWrapper';
 import {observer} from 'mobx-react-lite';
+import LoginForm from '../components/login/LoginForm';
 
 const LoginPage = () => {
 
@@ -21,12 +21,13 @@ const LoginPage = () => {
                     alignItems="center"
                     justifyContent="center"
                     marginTop={4}
+                    sx={{display:{ xs: 'none', md: 'flex' }}}
                 >
-                    <LogoCard/>
+                    <LogoCard />
                 </Grid>
             </Grid>
-                 <AuthFormWrapper>
-                     <LoginForm/>
+                 <AuthFormWrapper >
+                     <LoginForm />
                  </AuthFormWrapper>
             </Grid>
 

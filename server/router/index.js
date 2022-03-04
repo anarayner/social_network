@@ -3,7 +3,7 @@ const authRouter = require('./authRouter')
 const postRouter = require ('./postRouter');
 const router = new Router();
 
-router.use('/auth', authRouter)
+router.use('/user', authRouter)
 router.use('/posts', postRouter)
 
 

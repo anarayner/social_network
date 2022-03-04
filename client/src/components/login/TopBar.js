@@ -1,8 +1,8 @@
 import React from 'react';
 import {AppBar, Button, Toolbar, Typography} from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import Logo from '../assets/images/icons/Logo.svg'
-import {LOGIN_ROUTE, REGISTRATION_ROUTE} from '../util/consts';
+import Logo from '../../assets/images/icons/Logo.svg'
+import {LOGIN_ROUTE, REGISTRATION_ROUTE} from '../../util/consts';
 import {useLocation, useNavigate} from 'react-router-dom';
 
 
@@ -28,7 +28,7 @@ const TopBar = () => {
                 >
                     <img src={Logo} alt="logo" width={40} height={40}  />
                 </IconButton>
-                <Typography variant='h4' noWrap sx={{flexGrow: 1}}>UNION</Typography>
+                <Typography variant='h4' noWrap sx={{flexGrow: 1, display:{ xs: 'none', md: 'flex' }}}>UNION</Typography>
                     <nav>
                         <Button  variant={!isLogin?'contained':'outlined'} sx={{ my: 1, mx: 1.5 }}
                                 onClick={()=> navigate(REGISTRATION_ROUTE)}

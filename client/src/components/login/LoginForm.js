@@ -6,15 +6,18 @@ import {
     Typography
 } from '@mui/material';
 import {useContext} from 'react';
-import {Context} from '../index';
-import useForm from '../hooks/useForm';
-import validate from '../hooks/formInputValidator';
-import {LOGIN_ROUTE, REGISTRATION_ROUTE} from '../util/consts';
+import {Context} from '../../index';
+import useForm from '../../hooks/useForm';
+import validate from '../../hooks/formInputValidator';
 import {NavLink, useNavigate} from 'react-router-dom';
+import {HOME_ROUTE, REGISTRATION_ROUTE} from '../../util/consts';
+import {observer} from 'mobx-react-lite';
 
-export default function RegistrationForm(){
 
-    const {store} = useContext(Context);
+function LoginForm(){
+
+    const {user} = useContext(Context);
+    const navigate = useNavigate()
     const {
         values,
         errors,
@@ -22,8 +25,8 @@ export default function RegistrationForm(){
         handleSubmit,
     } = useForm(register, validate);
 
-    function register (){ store.registration(values.email, values.password)
-    console.log(values.email, values.password)
+    function register (){ user.login(values.email, values.password)
+        console.log(values.email, values.password)
     }
 
     return (
@@ -48,7 +51,7 @@ export default function RegistrationForm(){
                     component="h1"
                     variant="h5"
                     sx={{mt: 3}} >
-                    Create new account
+                    Login
                 </Typography>
                 <Box component="form"
                      onSubmit={handleSubmit}
@@ -68,7 +71,6 @@ export default function RegistrationForm(){
                         onChange={handleChange}
                         error={Boolean(errors?.email)}
                         helperText={(errors?.email)}
-
                     />
                     <TextField
                         margin="normal"
@@ -92,8 +94,9 @@ export default function RegistrationForm(){
                         color="primary"
                         sx={{ mt: 3, mb: 2}}
                         style={{ height: 50}}
+                        onClick={()=> navigate(HOME_ROUTE)}
                     >
-                        Sign up
+                        Sign in
                     </Button>
 
                     <Grid item xs={12} sx={{ mt: 2, mb: 1}}
@@ -107,16 +110,14 @@ export default function RegistrationForm(){
                                 variant="body2"
                                 onClick={(e) => {
                                     e.preventDefault();
-                                    console.info("I'm a button.");
                                 }}
                             >
-                                <NavLink to={LOGIN_ROUTE}>
-
+                                <NavLink to={REGISTRATION_ROUTE}>
                                 <Typography
                                     variant="subtitle1"
                                     sx={{ textDecoration: 'none' }}
                                 >
-                                    Already have an account?
+                                    Don&apos;t have an account?
                                 </Typography>
                                 </NavLink>
                             </Link>
@@ -127,4 +128,6 @@ export default function RegistrationForm(){
         </Card>
     );
 };
+
+export default observer(LoginForm)
 
