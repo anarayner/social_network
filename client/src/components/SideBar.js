@@ -11,6 +11,7 @@ import {mainListItems} from './assets/listItems';
 import {styled} from '@mui/system';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiDrawer from '@mui/material/Drawer';
+import {hover} from '@testing-library/user-event/dist/hover';
 
 
 const drawerWidth = 240
@@ -85,6 +86,12 @@ const SearchIconWrapper = styled('div', {})({
     justifyContent: 'center',
 });
 
+const ButtonIcon = styled(IconButton,{})({
+    '&:hover': {
+        backgroundColor: theme.palette.secondary.main,
+    },
+})
+
 const SideBar = () => {
 
     const[open, setOpen] = useState(true)
@@ -113,7 +120,7 @@ const SideBar = () => {
                     </SearchComponent>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton
+                        <ButtonIcon
                             aria-label="show 4 new mails"
                             sx={{backgroundColor: theme.palette.primary.main,
                                 color: theme.palette.common.white,
@@ -122,39 +129,43 @@ const SideBar = () => {
                             <Badge badgeContent={4} color="error">
                                 <MailIcon />
                             </Badge>
-                        </IconButton>
-                        <IconButton
+                        </ButtonIcon>
+                        <ButtonIcon
                             aria-label="show 4 new mails"
                             sx={{backgroundColor: theme.palette.primary.main,
                                 color: theme.palette.common.white,
+
                             }}>
                             <Badge badgeContent={17} color="error" >
                                 <NotificationsIcon />
                             </Badge>
-                        </IconButton>
+                        </ButtonIcon>
                         <Avatar sx={{ backgroundColor: 'primary', ml: 2}}>N</Avatar>
                     </Box>
                 </Toolbar>
             </AppBar>
-            <Drawer variant="permanent"  open={open}>
+            <Box position={'fixed'} >
+
+            <Drawer variant="permanent"  open={open}  >
                 <Toolbar
-                    position='sticky'
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'flex-end',
-                        color: theme.palette.background.default
+                        color: theme.palette.background.default,
                     }}>
                     <IconButton onClick={toggleDrawer}>
                         <ChevronLeftIcon sx={{color: theme.palette.background.default}}/>
                     </IconButton>
-
                 </Toolbar>
                 <Divider sx={{backgroundColor: theme.palette.background.default}}/>
-                <List component='nav'>
+
+                <List component='nav' sx={{minHeight: '100vh'}}>
                     {mainListItems }
                 </List>
+
             </Drawer>
+        </Box>
         </>
     );
 };

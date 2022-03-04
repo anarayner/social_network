@@ -11,7 +11,7 @@ import UserInfo from '../components/UserInfo';
 import CreatePost from '../components/CreatePost';
 import {Context} from '../index';
 import SideBar from '../components/SideBar';
-import PostsList from '../components/login/PostsList';
+import PostsList from '../components/PostsList';
 import {getPostList} from '../http/PostAPI';
 
 
@@ -24,9 +24,14 @@ const HomePage = () => {
 
     return (
         <Box sx={{display: 'flex', minHeight: '100vh'}}>
-         <SideBar/>
+            <Grid container>
+                <Grid item xs={6} sm={3} md={1}>
 
-            <Container  sx={{ mt: 10, mb: 4,  }}>
+            <SideBar/>
+                </Grid>
+                <Grid item xs={6} sm={9} md={11}>
+
+                <Container  sx={{ mt: 10, mb: 4,  }}>
                 <Grid container spacing={3}>
                     {/* Posts */}
                     <Grid item xs={12} md={8} lg={9}>
@@ -48,6 +53,8 @@ const HomePage = () => {
                     </Grid>
                     </Grid>
             </Container>
+                </Grid>
+            </Grid>
         </Box>
     );
 };

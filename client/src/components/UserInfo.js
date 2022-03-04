@@ -9,7 +9,7 @@ const UserInfo = () => {
             backgroundColor: '#fff',
             borderRadius: 2,
             boxShadow: 1,
-            mt:5, p: 2
+            mt:5, p: 2,
         }}>
             <Grid container spacing={3} direction='row'>
                 <Grid item sm={12} md={3}>
