@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import {
     Box,
@@ -9,17 +9,18 @@ import {
 
 import UserInfo from '../components/UserInfo';
 import CreatePost from '../components/CreatePost';
-import Post from '../components/Post';
 import {Context} from '../index';
 import SideBar from '../components/SideBar';
 import PostsList from '../components/login/PostsList';
-
+import {getPostList} from '../http/PostAPI';
 
 
 const HomePage = () => {
-    const {user} = useContext(Context);
-    console.log({user})
-
+    const {user, post} = useContext(Context);
+    useEffect(()=>{
+        getPostList().then(data =>post.setPosts(data))
+    },[])
+    console.log(user.isAuth)
 
     return (
         <Box sx={{display: 'flex', minHeight: '100vh'}}>
