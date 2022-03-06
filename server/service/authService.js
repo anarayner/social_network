@@ -9,7 +9,7 @@ const ApiError = require('../errors/apiError')
 
 
 
-class UserService{
+class AuthService{
     async registration(email, password){
         const condidate = await UserModel.findOne({email})
         if (condidate){
@@ -19,8 +19,8 @@ class UserService{
         const activationLink = uuid.v4()
         const user = await UserModel.create({email, password: hashPassword, activationLink})
         try {
-            await emailService.sendActivationEmail(email, `${process.env.API_URL}/api/user/activate/${activationLink}`)
-            }catch(e){
+            await emailService.sendActivationEmail(email, `${process.env.API_URL}/api/auth/activate/${activationLink}`)
+        }catch(e){
             console.log(e.message)
         }
         const userDTO = new UserDTO(user) //  email, id, isActivated
@@ -56,7 +56,7 @@ class UserService{
     }
 
     async logout (refreshToken){
-     const token = await tokenService.removeToken(refreshToken)
+        const token = await tokenService.removeToken(refreshToken)
         return token
     }
 
@@ -83,4 +83,4 @@ class UserService{
 }
 
 
-module.exports = new UserService();
+module.exports = new AuthService();

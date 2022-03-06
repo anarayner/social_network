@@ -25,26 +25,29 @@ export default class userStore{
 
     async login(email, password){
         try{
-            console.log(response)
             const response = await AuthService.login(email, password)
+            console.log(response.data)
             console.log(response)
+
             localStorage.setItem('token', response.data.accessToken)
             this.setIsAuth(true)
             this.setUser(response.data.user)
         }catch (e) {
+            console.log(e)
             alert(e.response?.data?.message)
         }
     }
 
     async registration(email, password){
         try{
-            console.log(response)
             const response = await AuthService.registration(email, password)
             console.log(response.data)
             localStorage.setItem('token', response.data.accessToken)
             this.setIsAuth(true)
             this.setUser(response.data.user)
         }catch (e) {
+            console.log(e)
+
             alert(e.response?.data?.message)
         }
     }
@@ -61,7 +64,7 @@ export default class userStore{
     }
     async checkAuth(){
         try{
-            const response = await axios.get(`${API_URL_CONST}/user/refresh`, {withCredentials: true})
+            const response = await axios.get(`${API_URL_CONST}/auth/refresh`, {withCredentials: true})
             console.log(response)
             localStorage.setItem('token', response.data.accessToken)
             this.setIsAuth(true)

@@ -54,21 +54,7 @@ export default function RegistrationForm(){
                      onSubmit={handleSubmit}
                      noValidate
                      sx={{ mt: 2 }}>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoFocus
-                        autoComplete="email"
-                        value={values.email || ''}
-                        onChange={handleChange}
-                        error={Boolean(errors?.email)}
-                        helperText={(errors?.email)}
 
-                    />
                     <TextField
                         margin="normal"
                         required
