@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {alpha, Avatar, Badge, Box, Divider, InputBase, List, Toolbar} from '@mui/material';
+import React, {useContext, useState} from 'react';
+import {alpha, Avatar, Badge, Box, Button, Divider, InputBase, List, Toolbar} from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {Search} from '@material-ui/icons';
@@ -11,7 +11,7 @@ import {mainListItems} from './assets/listItems';
 import {styled} from '@mui/system';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiDrawer from '@mui/material/Drawer';
-import {hover} from '@testing-library/user-event/dist/hover';
+import {Context} from '../index';
 
 
 const drawerWidth = 240
@@ -93,7 +93,7 @@ const ButtonIcon = styled(IconButton,{})({
 })
 
 const SideBar = () => {
-
+    const {user} = useContext(Context)
     const[open, setOpen] = useState(true)
     const toggleDrawer = () =>{
         setOpen(!open)
@@ -157,6 +157,11 @@ const SideBar = () => {
                     <IconButton onClick={toggleDrawer}>
                         <ChevronLeftIcon sx={{color: theme.palette.background.default}}/>
                     </IconButton>
+                    <Button  variant='outlined' sx={{ my: 1, mx: 1.5 }}
+                             onClick={()=> user.logout()}
+                    >
+                        Log out
+                    </Button>
                 </Toolbar>
                 <Divider sx={{backgroundColor: theme.palette.background.default}}/>
 
