@@ -5,3 +5,5 @@ export const getPostList = async ()=>{
     console.log(data)
     return data
 }
+
+

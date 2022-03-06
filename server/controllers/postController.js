@@ -1,4 +1,4 @@
-require('dotenv').config()
+ require('dotenv').config()
 const uuid = require('uuid');
 const path = require('path')
 const ApiError = require('../errors/apiError')
@@ -10,7 +10,7 @@ class PostController{
     async create(req, res, next){
         try{
             const {content, userId, createdBy} = req.body
-            if(req.files !== undefined || null) {
+            if(req.files) {
                 const {img} = req.files
                 if(!img){
                     throw ApiError.BadRequest("Only image can be uploaded")
@@ -29,8 +29,9 @@ class PostController{
 
     async getPostList(req, res, next){
         try{
-          const user = await User.findById(req.body.userId)
-          let posts = await Post.find({user})
+            const {id} = req.body
+          const user = await User.findById(id)
+          let posts = await Post.find({})
             return res.json (posts)
         }catch (e) {
             next(ApiError.BadRequest(e.message))

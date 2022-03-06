@@ -21,6 +21,11 @@ const HomePage = () => {
         getPostList().then(data =>post.setPosts(data))
     },[])
     console.log(user.isAuth)
+    console.log(user.user.id)
+    console.log(post.posts)
+
+
+
 
     return (
         <Box sx={{display: 'flex', minHeight: '100vh'}}>
@@ -34,13 +39,13 @@ const HomePage = () => {
                 <Container  sx={{ mt: 10, mb: 4,  }}>
                 <Grid container spacing={3}>
                     {/* Posts */}
-                    <Grid item xs={12} md={8} lg={9}>
+                    <Grid item xs={12} md={10} lg={9} sx={{ml: '100px'}}>
                         <UserInfo />
                         <CreatePost/>
                         <PostsList/>
                     </Grid>
                     {/* message */}
-                    <Grid item xs={12} md={4} lg={3}>
+                    <Grid item xs={12} md={2} lg={3}>
                         <Paper
                             sx={{
                                 p: 2,

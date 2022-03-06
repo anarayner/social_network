@@ -76,10 +76,6 @@ class AuthService{
         return {...tokens, user: userDTO}
     }
 
-    async getAllUsers(){
-        const users = await  UserModel.find()
-        return users
-    }
 }
 
 

@@ -72,7 +72,6 @@ const SearchComponent = styled('div',{})({
     backgroundColor: alpha('#3e4457', 0.15),
     '&:hover': {
         backgroundColor: alpha('#3e4457', 0.25),
-        width: 500,
     },
 
 });

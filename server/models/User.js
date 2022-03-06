@@ -8,9 +8,6 @@ const UserSchema = new Schema({
     isActivated: {type: Boolean, default: false},
     activationLink: {type: String},
     profilePicture: {type: String, default: ''},
-    followers: {type: Array, default: []},
-    following: {type: Array, default: []},
-    isAdmin:{type: Boolean, default: true}
 },
     {
        timestamps: true
