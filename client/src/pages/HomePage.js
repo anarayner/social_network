@@ -12,20 +12,23 @@ import CreatePost from '../components/CreatePost';
 import {Context} from '../index';
 import SideBar from '../components/SideBar';
 import PostsList from '../components/PostsList';
-import {getPostList} from '../http/PostAPI';
+import {getProfilePosts} from '../services/PostService';
+import {useParams} from 'react-router-dom';
+import {fetchOneUser} from '../services/UsersService';
 
 
 const HomePage = () => {
-    const {user, post} = useContext(Context);
+    const {user, post, users} = useContext(Context);
     useEffect(()=>{
-        getPostList().then(data =>post.setPosts(data))
+        fetchOneUser(user.user.id).then(data =>{
+            users.setUsers(data)})
+
+        getProfilePosts(user.user.id).then(data =>{
+            post.setPosts(data)})
+
     },[])
-    console.log(user.isAuth)
-    console.log(user.user.id)
     console.log(post.posts)
-
-
-
+    console.log(users.users)
 
     return (
         <Box sx={{display: 'flex', minHeight: '100vh'}}>

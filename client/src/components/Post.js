@@ -9,8 +9,10 @@ import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PostComments from './PostComments';
+import {Image} from '@material-ui/icons';
 
 const Post = ({post}) => {
+
     return (
         <Card sx={{borderRadius: 2, mt: 2}}>
             <CardHeader
@@ -27,12 +29,8 @@ const Post = ({post}) => {
                 title={post.createdBy}
                 subheader="March 3, 2022"
             />
-            <CardMedia
-                component="img"
-                height="500"
-                image={post.img}
-                alt="Paella dish"
-            />
+
+            <Image  height={500} src={process.env.REACT_APP_API_URL+post.img}/>
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
                     {post.content}

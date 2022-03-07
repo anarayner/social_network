@@ -2,17 +2,17 @@ import {makeAutoObservable} from 'mobx';
 import axios from 'axios';
 import {API_URL_CONST} from '../http';
 
-export default class postsStore{
-    _posts = [];
+export default class usersStore{
+    _users = [];
     constructor() {
         makeAutoObservable(this)
     }
 
-    setPosts(posts){
-        this._posts = posts
+    setUsers(users){
+        this._users = users
     }
 
-    get posts(){
-        return this._posts
+    get users(){
+        return this._users
     }
 }

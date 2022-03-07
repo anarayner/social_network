@@ -4,8 +4,9 @@ const UserController = require('../../../NETWORK/server/controllers/userControll
 const authMiddleware = require ('../middleware/authMiddleware');
 
 router.get('/:id', UserController.getOne )
-router.get('/users',  UserController.getUsers)
+router.get('/',  UserController.getUsers )
 router.put('/:id', UserController.updateOne )
+router.put('/img/:id', UserController.uploadImg )
 router.delete('/:id', UserController.deleteOne )
 
 
