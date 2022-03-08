@@ -2,9 +2,7 @@ import * as React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
 import {useContext} from 'react';
 import {Context} from '../index';
@@ -14,12 +12,12 @@ import {USER_ROUTE} from '../util/consts';
 import {useNavigate} from 'react-router-dom';
 
 const UserList = observer(()=> {
-    const {userData} = useContext(Context);
+    const {usersData} = useContext(Context);
     const navigate = useNavigate()
 
     return (
         <List dense sx={{ width: '100%', maxWidth: 300, bgcolor: 'background.paper' }}>
-            {userData.users.map((user) => {
+            {usersData.users.map((user) => {
                 return (
                     <ListItem
                         key={user._id}

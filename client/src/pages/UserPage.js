@@ -6,31 +6,22 @@ import {
     Grid,
     Paper,
 } from '@mui/material';
-
 import UserInfo from '../components/UserInfo';
 import CreatePost from '../components/CreatePost';
 import {Context} from '../index';
 import SideBar from '../components/SideBar';
 import PostsList from '../components/PostsList';
-import {getProfilePosts} from '../services/PostService';
-import {useParams} from 'react-router-dom';
-import {fetchOneUser, fetchUsers} from '../services/UsersService';
+import {fetchUsers} from '../services/UsersService';
 import UserList from '../components/UserList';
 
 
 const UserPage = () => {
-    const {user, post, userData} = useContext(Context);
-    const {id} = useParams()
+    const {user, post, usersData} = useContext(Context);
 
         useEffect(()=>{
         fetchUsers().then(data =>{
-            userData.setUsers(data)})
-
-        getProfilePosts(id).then(data =>{
-            post.setPosts(data)})
-
-    },[post])
-
+            usersData.setUsers(data)})
+    },[])
 
     return (
         <Box sx={{display: 'flex', minHeight: '100vh'}}>

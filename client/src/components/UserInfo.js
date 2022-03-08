@@ -2,23 +2,37 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Avatar, Box, Button, Grid} from '@mui/material';
 import {Typography} from '@material-ui/core';
 import Divider from '@mui/material/Divider';
-import {fetchOneUser} from '../services/UsersService';
 import {useParams} from 'react-router-dom';
 import {Context} from '../index';
+import {observer} from 'mobx-react';
+import {fetchOneUser} from '../services/UsersService';
 
-const UserInfo = () => {
-    const {id} = useParams()
-    const {user} = useContext(Context);
+const UserInfo =observer (() => {
+        const {id} = useParams()
+        const {user} = useContext(Context);
+
+        const [userInfo, setUserInfo] = useState([])
+        useEffect(()=>{
+                fetchOneUser(id).then(data => {
+                    console.log(data)
+                    setUserInfo(data)
+                })
+        },[id])
+        console.log(user.user.id)
+        console.log()
 
 
-
-    return (
+        return (
+        <div>
+            {userInfo.map((user)=>
+                <div key={user._id}>
         <Box sx={{
             backgroundColor: '#fff',
             borderRadius: 2,
             boxShadow: 1,
             mt:5, p: 2,
-        }}>
+        }}
+        >
             <Grid container spacing={3} direction='row'>
                 <Grid item sm={12} md={3}>
                     <Box sx={{
@@ -43,9 +57,12 @@ const UserInfo = () => {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <Box >
-                        <Typography variant="h5"  >
-                            name
-                        </Typography>
+
+                            <Typography variant="h5"  >
+                                {user.username}
+                            </Typography>
+
+
                         <Divider sx={{pt:1, mb: 1}} />
                         <Typography variant="body2" sx={{mt:1}}>
                             City
@@ -53,14 +70,16 @@ const UserInfo = () => {
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={3}>
+                    (!id == user.user.id){
+
                     <Box>
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             color="primary"
-                            sx={{ mt:3}}
-                            style={{ height: 40}}
+                            sx={{mt: 3}}
+                            style={{height: 40}}
                         >
                             Follow
                         </Button>
@@ -69,16 +88,27 @@ const UserInfo = () => {
                             fullWidth
                             variant="contained"
                             color="primary"
-                            sx={{ mt: 3}}
-                            style={{ height: 40,}}
+                            sx={{mt: 3}}
+                            style={{height: 40,}}
                         >
                             Send message
                         </Button>
                     </Box>
+                }
                 </Grid>
             </Grid>
+
+
+
         </Box>
-    );
-};
+                </div>
+            )}
+
+        </div>
+
+    )
+
+}
+)
 
 export default UserInfo;
