@@ -1,7 +1,7 @@
 import $api from '../http';
 
 
-export const fetchUsers = async (id)=>{
+export const fetchUsers = async ()=>{
     const {data} = await $api.get('/user')
     console.log(data)
     return data

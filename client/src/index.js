@@ -9,13 +9,13 @@ import usersStore from './store/usersStore'
 
 const user = new userStore()
 const post = new postStore()
-const users = new usersStore()
+const userData = new usersStore()
 
 
-export const Context = createContext({user, post, users})
+export const Context = createContext({user, post, userData})
 
 ReactDOM.render(
-    <Context.Provider value={{user, post, users}}>
+    <Context.Provider value={{user, post, userData}}>
     <App />
     </Context.Provider>,
   document.getElementById('root')

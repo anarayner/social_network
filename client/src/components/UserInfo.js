@@ -1,9 +1,17 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Avatar, Box, Button, Grid} from '@mui/material';
 import {Typography} from '@material-ui/core';
 import Divider from '@mui/material/Divider';
+import {fetchOneUser} from '../services/UsersService';
+import {useParams} from 'react-router-dom';
+import {Context} from '../index';
 
 const UserInfo = () => {
+    const {id} = useParams()
+    const {user} = useContext(Context);
+
+
+
     return (
         <Box sx={{
             backgroundColor: '#fff',
@@ -36,7 +44,7 @@ const UserInfo = () => {
                 <Grid item xs={12} md={6}>
                     <Box >
                         <Typography variant="h5"  >
-                            Name
+                            name
                         </Typography>
                         <Divider sx={{pt:1, mb: 1}} />
                         <Typography variant="body2" sx={{mt:1}}>

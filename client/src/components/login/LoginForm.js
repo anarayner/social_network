@@ -10,7 +10,7 @@ import {Context} from '../../index';
 import useForm from '../../hooks/useForm';
 import validate from '../../hooks/formInputValidator';
 import {NavLink, useNavigate} from 'react-router-dom';
-import {HOME_ROUTE, REGISTRATION_ROUTE} from '../../util/consts';
+import {USER_ROUTE, REGISTRATION_ROUTE} from '../../util/consts';
 import {observer} from 'mobx-react-lite';
 
 
@@ -94,7 +94,7 @@ function LoginForm(){
                         color="primary"
                         sx={{ mt: 3, mb: 2}}
                         style={{ height: 50}}
-                        onClick={()=> navigate(HOME_ROUTE)}
+                        onClick={()=> navigate(USER_ROUTE)}
                     >
                         Sign in
                     </Button>
