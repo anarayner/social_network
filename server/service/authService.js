@@ -10,14 +10,14 @@ const ApiError = require('../errors/apiError')
 
 
 class AuthService{
-    async registration(email, password){
+    async registration(username, email, password){
         const condidate = await UserModel.findOne({email})
         if (condidate){
             throw ApiError.BadRequest(`This email address is already being used.`)
         }
         const hashPassword = await bcrypt.hash(password, 2)
         const activationLink = uuid.v4()
-        const user = await UserModel.create({email, password: hashPassword, activationLink})
+        const user = await UserModel.create({username, email, password: hashPassword, activationLink})
         try {
             await emailService.sendActivationEmail(email, `${process.env.API_URL}/api/auth/activate/${activationLink}`)
         }catch(e){

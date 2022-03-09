@@ -22,7 +22,7 @@ export default function RegistrationForm(){
         handleSubmit,
     } = useForm(register, validate);
 
-    function register (){ user.registration(values.email, values.password)
+    function register (){ user.registration(values.username, values.email, values.password)
     console.log(values.email, values.password)
     }
 
@@ -58,15 +58,15 @@ export default function RegistrationForm(){
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
+                        id="username"
+                        label="Name"
+                        name="username"
                         autoFocus
-                        autoComplete="email"
-                        value={values.email || ''}
+                        autoComplete="username"
+                        value={values.username || ''}
                         onChange={handleChange}
-                        error={Boolean(errors?.email)}
-                        helperText={(errors?.email)}
+                        error={Boolean(errors?.username)}
+                        helperText={(errors?.username)}
 
                     />
 

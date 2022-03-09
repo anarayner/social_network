@@ -5,6 +5,8 @@ const bcrypt = require ('bcrypt');
 const User = require('../models/User')
 const path = require ('path');
 const uuid = require('uuid');
+const fs = require("fs");
+
 
 class UserController{
 
@@ -46,12 +48,13 @@ class UserController{
     async uploadImg(req, res, next){
         try{
             const {id} = req.params
-            const {img} = req.files
-
-                let imgFileName = uuid.v4 () + '.jpg'
-                await img.mv (path.resolve (__dirname, '..', 'static', imgFileName))
-                const user = await User.findByIdAndUpdate(id, {$set: req.files})
-                return res.json (user)
+            const {profilePicture} = req.files
+            let imgFileName = uuid.v4 () + '.jpg'
+            console.log(imgFileName)
+            await profilePicture.mv (path.resolve (__dirname, '..', 'static', imgFileName))
+            console.log(imgFileName)
+            const user = await User.findByIdAndUpdate(id, {profilePicture: imgFileName})
+            return res.json (user)
 
         }catch (e) {
             res.json (e.message)

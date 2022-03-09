@@ -6,6 +6,7 @@ import {useParams} from 'react-router-dom';
 import {Context} from '../index';
 import {observer} from 'mobx-react';
 import {fetchOneUser} from '../services/UsersService';
+import ImgUploadModal from './profile/imgUploadModal';
 
 const UserInfo =observer (() => {
         const {id} = useParams()
@@ -13,10 +14,10 @@ const UserInfo =observer (() => {
 
         const [userInfo, setUserInfo] = useState([])
         useEffect(()=>{
-                if(id === undefined) {
-                    let id = user.user.id
-                    return id
-                }
+                // if(id === undefined) {
+                //     let id = user.user.id
+                //     return id
+                // }
                 fetchOneUser(id).then(data => {
                     console.log(data)
                     setUserInfo(data)
@@ -53,11 +54,12 @@ const UserInfo =observer (() => {
                     }}>
                         <Avatar
                             alt="Cindy Baker"
-                            src="/static/images/avatar/3.jpg"
+                            src={'http://localhost:7000/' + user.profilePicture}
                             sx={{height: 135, width: 135}}
 
                         />
-                    </Box>
+                        </Box>
+                    <ImgUploadModal/>
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <Box >
@@ -65,12 +67,8 @@ const UserInfo =observer (() => {
                             <Typography variant="h5"  >
                                 {user.username}
                             </Typography>
-
-
                         <Divider sx={{pt:1, mb: 1}} />
-                        <Typography variant="body2" sx={{mt:1}}>
-                            City
-                        </Typography>
+
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={3}>
