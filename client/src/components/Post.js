@@ -12,7 +12,7 @@ import PostComments from './PostComments';
 import {Image} from '@material-ui/icons';
 
 const Post = ({post}) => {
-
+console.log(post.img)
     return (
         <Card sx={{borderRadius: 2, mt: 2}}>
             <CardHeader
@@ -30,7 +30,12 @@ const Post = ({post}) => {
                 subheader="March 3, 2022"
             />
 
-            <Image  height={500} src={process.env.REACT_APP_API_URL+post.img}/>
+            <CardMedia
+                component="img"
+                height="400"
+                image={'http://localhost:7000/' + post.img}
+                alt="img"
+            />
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
                     {post.content}

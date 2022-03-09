@@ -13,6 +13,10 @@ const UserInfo =observer (() => {
 
         const [userInfo, setUserInfo] = useState([])
         useEffect(()=>{
+                if(id === undefined) {
+                    let id = user.user.id
+                    return id
+                }
                 fetchOneUser(id).then(data => {
                     console.log(data)
                     setUserInfo(data)
@@ -70,8 +74,6 @@ const UserInfo =observer (() => {
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={3}>
-                    (!id == user.user.id){
-
                     <Box>
                         <Button
                             type="submit"
@@ -94,7 +96,6 @@ const UserInfo =observer (() => {
                             Send message
                         </Button>
                     </Box>
-                }
                 </Grid>
             </Grid>
 

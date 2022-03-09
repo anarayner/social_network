@@ -6,8 +6,6 @@ const User = require('../models/User')
 const path = require ('path');
 const uuid = require('uuid');
 
-
-
 class UserController{
 
     async getOne(req, res, next){

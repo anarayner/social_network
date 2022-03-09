@@ -30,8 +30,10 @@ const UserPage = () => {
                    <SideBar/>
                 </Grid>
 
-                <Grid item xs={6} sm={8} md={9} lg={10}>
-                      <Container  sx={{ mt: 10, mb: 4,  }}>
+                <Grid item xs={6} sm={8} md={9} lg={10}
+                      sx={{ ml:30}}
+                >
+                      <Container  sx={{ mt: 10, mb: 4}}>
                           <Grid container spacing={3}>
                        {/* Posts */}
                        <Grid item xs={12} md={10} lg={9} >

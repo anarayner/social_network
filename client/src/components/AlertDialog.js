@@ -1,16 +1,21 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Fade, Snackbar} from '@mui/material';
 import {Context} from '../index';
 import {observer} from 'mobx-react-lite';
+import CircularProgress from '@mui/material/CircularProgress';
+import AppRouter from './AppRoutes';
+import Spinner from '../components/UI/Spinner'
 
 
 function AlertDialog() {
 
     const {user} = useContext(Context)
+    const [isLoading, setIsLoading] = useState(true)
+
 
     useEffect(()=>{
         if(localStorage.getItem('token')){
-            user.checkAuth()
+            user.checkAuth().finally(()=>setIsLoading(false))
         }
     },[])
 
@@ -23,6 +28,10 @@ function AlertDialog() {
     const handleClose = () => {
         setState({ ...state, open: false });
     };
+
+    if(isLoading){
+        return  <Spinner/>
+    }
     return (
         <>
             {user.isAuth?
@@ -43,6 +52,7 @@ function AlertDialog() {
                 />
 
             }
+            <AppRouter/>
         </>
 
     );

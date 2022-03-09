@@ -12,7 +12,6 @@ function App() {
       <BrowserRouter>
       <ThemeProvider theme={theme}>
           <AlertDialog/>
-          <AppRouter/>
       </ThemeProvider>
       </BrowserRouter>
   );
