@@ -7,7 +7,7 @@ const UserSchema = new Schema({
     password: {type: String, required: true},
     isActivated: {type: Boolean, default: false},
     activationLink: {type: String},
-    profilePicture: {type: String, default: 'https://icon-library.com/images/no-user-image-icon/no-user-image-icon-27.jpg'},
+    profilePicture: {type: String, default: '63df6dce-df09-4ef9-8516-3fc044b5ebd2.jpg'},
     followers: {type: Array, default:[]},
     following: {type: Array, default:[]}
     },

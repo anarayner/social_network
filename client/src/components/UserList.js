@@ -28,7 +28,7 @@ const UserList = observer(()=> {
                             <ListItemAvatar>
                                 <Avatar
                                     alt={`Avatar`}
-                                    src={`/static/images/avatar/1.jpg`}
+                                    src={'http://localhost:7000/' + user.profilePicture}
                                 />
                             </ListItemAvatar>
                             <Typography variant="body2" color="text.secondary">

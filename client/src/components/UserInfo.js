@@ -23,9 +23,6 @@ const UserInfo =observer (() => {
                     setUserInfo(data)
                 })
         },[id])
-        console.log(user.user.id)
-        console.log()
-
 
         return (
         <div>
@@ -58,13 +55,15 @@ const UserInfo =observer (() => {
                             sx={{height: 135, width: 135}}
 
                         />
-                        </Box>
+
+                    </Box>
                     <ImgUploadModal/>
+
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <Box >
+                    <Box sx={{ml:3}}>
 
-                            <Typography variant="h5"  >
+                            <Typography variant="body1"  >
                                 {user.username}
                             </Typography>
                         <Divider sx={{pt:1, mb: 1}} />
@@ -79,7 +78,7 @@ const UserInfo =observer (() => {
                             variant="contained"
                             color="primary"
                             sx={{mt: 3}}
-                            style={{height: 40}}
+                            size='small'
                         >
                             Follow
                         </Button>
@@ -89,7 +88,8 @@ const UserInfo =observer (() => {
                             variant="contained"
                             color="primary"
                             sx={{mt: 3}}
-                            style={{height: 40,}}
+                            size='small'
+
                         >
                             Send message
                         </Button>

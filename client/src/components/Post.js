@@ -9,10 +9,8 @@ import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PostComments from './PostComments';
-import {Image} from '@material-ui/icons';
 
 const Post = ({post}) => {
-console.log(post.img)
     return (
         <Card sx={{borderRadius: 2, mt: 2}}>
             <CardHeader

@@ -23,7 +23,7 @@ class AuthService{
         }catch(e){
             console.log(e.message)
         }
-        const userDTO = new UserDTO(user) //  email, id, isActivated
+        const userDTO = new UserDTO(user)
         const tokens = tokenService.generateToken({...userDTO})
         await  tokenService.saveToken(userDTO.id, tokens.refreshToken)
         return {...tokens, user: userDTO}
@@ -33,7 +33,6 @@ class AuthService{
     async activation(activationLink){
         console.log('hello')
         const user = await UserModel.findOne({activationLink})
-        console.log(user)
         if (!user){
             throw ApiError.BadRequest('Invalid activation link')
         }
@@ -41,18 +40,24 @@ class AuthService{
         user.save()
     }
     async login (email, password){
-        const user = await UserModel.findOne({email})
-        if(!user){
-            throw ApiError.BadRequest('User with this email is not found')
+        console.log(email)
+        try {
+            const user = await UserModel.findOne ({email})
+            if (!user) {
+                throw ApiError.BadRequest ('User with this email is not found')
+            }
+            const isPasswordConfirmed = await bcrypt.compare (password, user.password)
+            if (!isPasswordConfirmed) {
+                throw ApiError.BadRequest ('Invalid password')
+            }
+            const userDTO = new UserDTO (user)
+            const tokens = tokenService.generateToken ({...userDTO})
+            await tokenService.saveToken (userDTO.id, tokens.refreshToken)
+            return {...tokens, user: userDTO}
+        } catch (e) {
+            console.log(e.message)
         }
-        const isPasswordConfirmed = await bcrypt.compare(password, user.password)
-        if(!isPasswordConfirmed){
-            throw ApiError.BadRequest('Invalid password')
-        }
-        const userDTO = new UserDTO(user)
-        const tokens = tokenService.generateToken({...userDTO})
-        await  tokenService.saveToken(userDTO.id, tokens.refreshToken)
-        return {...tokens, user: userDTO}
+
     }
 
     async logout (refreshToken){
@@ -64,12 +69,12 @@ class AuthService{
         if(!refreshToken){
             throw ApiError.UnauthorizedError()
         }
-        const userData = tokenService.validateRefreshToken(refreshToken)
+        const user_Data = tokenService.validateRefreshToken(refreshToken)
         const tokenFromDb = await tokenService.findToken(refreshToken)
-        if(!userData || !tokenFromDb){
+        if(!user_Data || !tokenFromDb){
             throw ApiError.UnauthorizedError()
         }
-        const user = await UserModel.findById(userData.id)
+        const user = await UserModel.findById(user_Data.id)
         const userDTO = new UserDTO(user)
         const tokens = tokenService.generateToken({...userDTO})
         await  tokenService.saveToken(userDTO.id, tokens.refreshToken)

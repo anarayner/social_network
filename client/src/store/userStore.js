@@ -25,10 +25,10 @@ export default class userStore{
 
     async login(email, password){
         try{
-            const response = await AuthService.login(email, password)
+            console.log('hello')
+            const response = await AuthService.login('while.anaray@gmail.com', '123456')
+            console.log('done')
             console.log(response.data)
-            console.log(response)
-
             localStorage.setItem('token', response.data.accessToken)
             this.setIsAuth(true)
             this.setUser(response.data.user)

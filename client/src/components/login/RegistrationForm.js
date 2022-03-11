@@ -23,7 +23,6 @@ export default function RegistrationForm(){
     } = useForm(register, validate);
 
     function register (){ user.registration(values.username, values.email, values.password)
-    console.log(values.email, values.password)
     }
 
     return (

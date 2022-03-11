@@ -25,7 +25,7 @@ class AuthController {
         try {
             const activationLink = req.params.link
             await authService.activation(activationLink)
-            return res.redirect('http://localhost:3000/api/home/')
+            return res.redirect('http://localhost:3000/api/profile/')
         } catch (e) {
             next(e)
         }
@@ -34,11 +34,12 @@ class AuthController {
         try {
             const {email, password} = req.body;
             const userData = await authService.login(email, password)
+
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30*24*60*60*1000, httpOnly: true})
             return res.json(userData)
 
         } catch (e) {
-            next(e)
+            next(e.message)
         }
     }
     async logout(req, res, next) {

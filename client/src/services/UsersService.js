@@ -13,3 +13,9 @@ export const fetchOneUser = async (id)=>{
     console.log(data)
     return data
 }
+
+export const uploadProfilePicture = async (id, img)=>{
+    const {data} = await $api.put('/user/img/'+id, img)
+    console.log(data)
+    return data
+}

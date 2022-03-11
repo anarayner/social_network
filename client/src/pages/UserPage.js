@@ -11,17 +11,26 @@ import CreatePost from '../components/CreatePost';
 import {Context} from '../index';
 import SideBar from '../components/SideBar';
 import PostsList from '../components/PostsList';
-import {fetchUsers} from '../services/UsersService';
+import {fetchOneUser, fetchUsers} from '../services/UsersService';
 import UserList from '../components/UserList';
+import {useParams} from 'react-router-dom';
+import theme from '../theme';
 
 
-const UserPage = () => {
-    const {user, post, usersData} = useContext(Context);
-
+const UserPage = observer(() => {
+    const {user, usersData} = useContext(Context);
+    const {id} = useParams()
+        console.log(id)
         useEffect(()=>{
+            // fetchOneUser(user.user._id).then(data => {
+            //     console.log(data)
+            //     user.setUser(data)})
         fetchUsers().then(data =>{
             usersData.setUsers(data)})
     },[])
+
+
+    console.log(user)
 
     return (
         <Box sx={{display: 'flex', minHeight: '100vh'}}>
@@ -33,7 +42,7 @@ const UserPage = () => {
                 <Grid item xs={6} sm={8} md={9} lg={10}
                       sx={{ ml:30}}
                 >
-                      <Container  sx={{ mt: 10, mb: 4}}>
+                      <Container  sx={{ mt: 10, mb: 4, backgroundColor: theme.palette.background.default}}>
                           <Grid container spacing={3}>
                        {/* Posts */}
                        <Grid item xs={12} md={10} lg={9} >
@@ -59,6 +68,6 @@ const UserPage = () => {
             </Grid>
         </Box>
     );
-};
+});
 
-export default observer(UserPage);
+export default UserPage;

@@ -50,9 +50,7 @@ class UserController{
             const {id} = req.params
             const {profilePicture} = req.files
             let imgFileName = uuid.v4 () + '.jpg'
-            console.log(imgFileName)
             await profilePicture.mv (path.resolve (__dirname, '..', 'static', imgFileName))
-            console.log(imgFileName)
             const user = await User.findByIdAndUpdate(id, {profilePicture: imgFileName})
             return res.json (user)
 

@@ -10,12 +10,12 @@ import Spinner from '../components/UI/Spinner'
 function AlertDialog() {
 
     const {user} = useContext(Context)
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
 
     useEffect(()=>{
         if(localStorage.getItem('token')){
-            user.checkAuth().finally(()=>setIsLoading(false))
+            user.checkAuth()
         }
     },[])
 
@@ -52,7 +52,7 @@ function AlertDialog() {
                 />
 
             }
-            <AppRouter/>
+
         </>
 
     );

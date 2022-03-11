@@ -9,24 +9,24 @@ import {useContext} from 'react';
 import {Context} from '../../index';
 import useForm from '../../hooks/useForm';
 import validate from '../../hooks/formInputValidator';
+import {REGISTRATION_ROUTE} from '../../util/consts';
 import {NavLink, useNavigate} from 'react-router-dom';
-import {USER_ROUTE, REGISTRATION_ROUTE} from '../../util/consts';
-import {observer} from 'mobx-react-lite';
 
-
-function LoginForm(){
+export default function LoginForm(){
 
     const {user} = useContext(Context);
-    const navigate = useNavigate()
+
     const {
         values,
         errors,
         handleChange,
         handleSubmit,
-    } = useForm(register, validate);
+    } = useForm(login, validate);
 
-    function register (){ user.login(values.email, values.password)
-        console.log(values.email, values.password)
+
+    function login (){
+        console.log('hollo')
+        user.login(values.email, values.password)
     }
 
     return (
@@ -71,6 +71,7 @@ function LoginForm(){
                         onChange={handleChange}
                         error={Boolean(errors?.email)}
                         helperText={(errors?.email)}
+
                     />
                     <TextField
                         margin="normal"
@@ -94,7 +95,7 @@ function LoginForm(){
                         color="primary"
                         sx={{ mt: 3, mb: 2}}
                         style={{ height: 50}}
-                        onClick={()=> navigate(USER_ROUTE)}
+                        onClick={()=> login()  }
                     >
                         Sign in
                     </Button>
@@ -110,15 +111,17 @@ function LoginForm(){
                                 variant="body2"
                                 onClick={(e) => {
                                     e.preventDefault();
+                                    console.info("I'm a button.");
                                 }}
                             >
                                 <NavLink to={REGISTRATION_ROUTE}>
-                                <Typography
-                                    variant="subtitle1"
-                                    sx={{ textDecoration: 'none' }}
-                                >
-                                    Don&apos;t have an account?
-                                </Typography>
+
+                                    <Typography
+                                        variant="subtitle1"
+                                        sx={{ textDecoration: 'none' }}
+                                    >
+                                        Dont have an account?
+                                    </Typography>
                                 </NavLink>
                             </Link>
                         </Grid>
@@ -128,6 +131,4 @@ function LoginForm(){
         </Card>
     );
 };
-
-export default observer(LoginForm)
 
