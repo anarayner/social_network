@@ -14,20 +14,21 @@ const UserInfo =observer (() => {
 
         const [userInfo, setUserInfo] = useState([])
         useEffect(()=>{
-                // if(id === undefined) {
-                //     let id = user.user.id
-                //     return id
-                // }
+
                 fetchOneUser(id).then(data => {
-                    console.log(data)
-                    setUserInfo(data)
+                    setUserInfo(data[0])
                 })
+            // if(id === undefined) {
+            //     let id = user.user.id
+            //     return id
+            // }
         },[id])
+    console.log(user.user.id === id)
 
         return (
         <div>
-            {userInfo.map((user)=>
-                <div key={user._id}>
+
+                <div key={userInfo.id}>
         <Box sx={{
             backgroundColor: '#fff',
             borderRadius: 2,
@@ -51,7 +52,7 @@ const UserInfo =observer (() => {
                     }}>
                         <Avatar
                             alt="Cindy Baker"
-                            src={'http://localhost:7000/' + user.profilePicture}
+                            src={'http://localhost:7000/' + userInfo.profilePicture}
                             sx={{height: 135, width: 135}}
 
                         />
@@ -64,7 +65,7 @@ const UserInfo =observer (() => {
                     <Box sx={{ml:3}}>
 
                             <Typography variant="body1"  >
-                                {user.username}
+                                {userInfo.username}
                             </Typography>
                         <Divider sx={{pt:1, mb: 1}} />
 
@@ -72,6 +73,7 @@ const UserInfo =observer (() => {
                 </Grid>
                 <Grid item xs={12} md={3}>
                     <Box>
+
                         <Button
                             type="submit"
                             fullWidth
@@ -101,7 +103,6 @@ const UserInfo =observer (() => {
 
         </Box>
                 </div>
-            )}
 
         </div>
 

@@ -30,7 +30,6 @@ export default function ImgUploadModal() {
     const selectFile = (e) => {
         setFile(e.target.files[0])
     }
-    console.log(file)
     const {id} = useParams()
     const addImage = ()=>{
         const formData = new FormData()

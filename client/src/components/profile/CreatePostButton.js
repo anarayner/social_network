@@ -1,18 +1,14 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import {useEffect, useState} from 'react';
-import {uploadProfilePicture} from '../../services/UsersService';
+import {useState} from 'react';
+import {uploadPost, uploadProfilePicture} from '../../services/UsersService';
 import {useParams} from 'react-router-dom';
-import IconButton from '@mui/material/IconButton';
-import {PhotoCamera} from '@material-ui/icons';
 import theme from '../../theme';
 import {styled} from '@mui/system';
 import {grey} from '@mui/material/colors';
-import {Card, FormControl, Input, TextField} from '@mui/material';
-import PostInput from '../UI/PostInput';
+import {Card, FormControl, Input, TextField, withStyles} from '@mui/material';
 
 const style = {
     position: 'absolute',
@@ -39,17 +35,22 @@ export default function CreatePostButton() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const [input, setInput] = useState(null)
     const [file, setFile] = useState(null)
     const selectFile = (e) => {
         setFile(e.target.files[0])
     }
-    console.log(file)
+
+
     const {id} = useParams()
     const addImage = ()=>{
         const formData = new FormData()
-        formData.append('profilePicture', file)
-        uploadProfilePicture(id, formData).then((data) => setOpen(false))
+        formData.append('content', input)
+        formData.append('img', file)
+        formData.append('userId', id)
+        uploadPost(formData).then((data) => setOpen(false))
     }
+
 
     return (
         <Card sx={{
@@ -85,12 +86,13 @@ export default function CreatePostButton() {
             >
                 <Box sx={style}>
                     <form>
-                        <FormControl sx={{height: 300, width: 300}}>
-                            <TextField sx={{height: 200}}/>
-                        </FormControl>
+                       <TextField fullWidth
+                                  multiline
+                                  onChange={(e) => setInput(values => e.target.value )}
+                                  sx={{minHeight: 300}}/>
 
                 <input type='file' onChange={selectFile} style={{fontSize: 'medium'}}/>
-                        <Button variant='contained' disabled={!file} onClick={addImage}> Upload</Button>
+                        <Button variant='contained' disabled={!file} onClick={addImage}> Post</Button>
                     </form>
                 </Box>
             </Modal>

@@ -25,7 +25,6 @@ export default function LoginForm(){
 
 
     function login (){
-        console.log('hollo')
         user.login(values.email, values.password)
     }
 

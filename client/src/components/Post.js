@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -9,22 +9,31 @@ import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PostComments from './PostComments';
+import {getProfilePosts} from '../services/PostService';
+import {fetchOneUser} from '../services/UsersService';
+import {useParams} from 'react-router-dom';
 
 const Post = ({post}) => {
+    const {id} = useParams()
+    const [postUser, setPostUser] = useState([])
+
+    useEffect(()=>{
+
+        fetchOneUser(id).then(data => {
+            setPostUser(data[0])})
+    },[id])
     return (
         <Card sx={{borderRadius: 2, mt: 2}}>
             <CardHeader
                 avatar={
-                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        R
-                    </Avatar>
+                    <Avatar src={'http://localhost:7000/' + postUser.profilePicture}/>
                 }
                 action={
                     <IconButton aria-label="settings">
                         <MoreVertIcon />
                     </IconButton>
                 }
-                title={post.createdBy}
+                title={postUser.username}
                 subheader="March 3, 2022"
             />
 
