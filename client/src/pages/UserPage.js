@@ -34,7 +34,7 @@ const UserPage = observer(() => {
 
     return (
         <Box sx={{display: 'flex', minHeight: '100vh'}}>
-            <Grid container spacing={3}>
+            <Grid container spacing={3} sx={{backgroundColor: theme.palette.background.default}}>
                 <Grid item xs={6} sm={4} md={3} lg={2}>
                    <SideBar/>
                 </Grid>
@@ -42,7 +42,7 @@ const UserPage = observer(() => {
                 <Grid item xs={6} sm={8} md={9} lg={10}
                       sx={{ ml:30}}
                 >
-                      <Container  sx={{ mt: 10, mb: 4, backgroundColor: theme.palette.background.default}}>
+                      <Container  sx={{ mt: 10, mb: 4}}>
                           <Grid container spacing={3}>
                        {/* Posts */}
                        <Grid item xs={12} md={10} lg={9} >
