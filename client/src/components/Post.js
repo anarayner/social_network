@@ -6,17 +6,17 @@ import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PostComments from './PostComments';
-import {getProfilePosts} from '../services/PostService';
 import {fetchOneUser} from '../services/UsersService';
 import {useParams} from 'react-router-dom';
 
 const Post = ({post}) => {
-    const {id} = useParams()
+    let {id} = useParams()
     const [postUser, setPostUser] = useState([])
-
+    // if(!id){
+    //     id = localStorage.getItem('id')
+    // }
     useEffect(()=>{
 
         fetchOneUser(id).then(data => {

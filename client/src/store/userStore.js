@@ -25,13 +25,14 @@ export default class userStore{
 
     async login(email, password){
         try{
-            console.log('hello')
-            const response = await AuthService.login('while.anaray@gmail.com', '123456')
-            console.log('done')
-            console.log(response.data)
+            const response = await AuthService.login(email, password)
+            // console.log(response.data)
             localStorage.setItem('token', response.data.accessToken)
+            localStorage.setItem('id', response.data.user.id)
             this.setIsAuth(true)
             this.setUser(response.data.user)
+            console.log(response.data.user.id);
+
         }catch (e) {
             console.log(e)
             alert(e.response?.data?.message)
@@ -45,6 +46,7 @@ export default class userStore{
             localStorage.setItem('token', response.data.accessToken)
             this.setIsAuth(true)
             this.setUser(response.data.user)
+
         }catch (e) {
             console.log(e)
 

@@ -8,13 +8,15 @@ import {
 import {useContext} from 'react';
 import {Context} from '../../index';
 import useForm from '../../hooks/useForm';
-import validate from '../../hooks/formInputValidator';
-import {REGISTRATION_ROUTE} from '../../util/consts';
+import validate from '../../hooks/loginValidator';
+import {REGISTRATION_ROUTE, USER_ROUTE} from '../../util/consts';
 import {NavLink, useNavigate} from 'react-router-dom';
 
 export default function LoginForm(){
 
     const {user} = useContext(Context);
+    const navigate = useNavigate()
+
 
     const {
         values,
@@ -26,6 +28,9 @@ export default function LoginForm(){
 
     function login (){
         user.login(values.email, values.password)
+        console.log(user.user.id)
+
+        navigate(USER_ROUTE +'/' + user.user.id)
     }
 
     return (
@@ -94,7 +99,6 @@ export default function LoginForm(){
                         color="primary"
                         sx={{ mt: 3, mb: 2}}
                         style={{ height: 50}}
-                        onClick={()=> login()  }
                     >
                         Sign in
                     </Button>

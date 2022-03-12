@@ -6,8 +6,11 @@ import {useParams} from 'react-router-dom';
 import {getProfilePosts} from '../services/PostService';
 
 const PostsList = observer( () => {
-    const {id} = useParams()
+    let {id} = useParams()
     const [posts, setPosts] = useState([])
+    // if(!id){
+    //     id = localStorage.getItem('id')
+    // }
 
     useEffect(()=>{
         getProfilePosts(id).then(data =>{

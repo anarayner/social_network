@@ -19,12 +19,12 @@ import theme from '../theme';
 
 const UserPage = observer(() => {
     const {user, usersData} = useContext(Context);
-    const {id} = useParams()
+    let {id} = useParams()
+    // if(!id){
+    //     id = localStorage.getItem('id')
+    // }
         console.log(id)
         useEffect(()=>{
-            // fetchOneUser(user.user._id).then(data => {
-            //     console.log(data)
-            //     user.setUser(data)})
         fetchUsers().then(data =>{
             usersData.setUsers(data)})
     },[])

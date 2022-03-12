@@ -3,8 +3,6 @@ import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
 
-
-
 export const authRoutes =[
     {path: USER_ROUTE +'/:id', element: <UserPage/>},
     {path: "*", element: <UserPage/>}

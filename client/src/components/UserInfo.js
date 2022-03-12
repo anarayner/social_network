@@ -9,8 +9,10 @@ import {fetchOneUser} from '../services/UsersService';
 import ImgUploadModal from './profile/imgUploadModal';
 
 const UserInfo =observer (() => {
-        const {id} = useParams()
-        const {user} = useContext(Context);
+        let {id} = useParams()
+        // if(!id){
+        //     id = localStorage.getItem('id')
+        // }
 
         const [userInfo, setUserInfo] = useState([])
         useEffect(()=>{
@@ -18,12 +20,7 @@ const UserInfo =observer (() => {
                 fetchOneUser(id).then(data => {
                     setUserInfo(data[0])
                 })
-            // if(id === undefined) {
-            //     let id = user.user.id
-            //     return id
-            // }
-        },[id])
-    console.log(user.user.id === id)
+           },[id])
 
         return (
         <div>
