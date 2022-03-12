@@ -3,12 +3,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import {useState} from 'react';
-import {uploadPost, uploadProfilePicture} from '../../services/UsersService';
+import {uploadPost} from '../../services/UsersService';
 import {useParams} from 'react-router-dom';
 import theme from '../../theme';
 import {styled} from '@mui/system';
 import {grey} from '@mui/material/colors';
-import {Card, FormControl, Input, TextField, withStyles} from '@mui/material';
+import {Card, TextField} from '@mui/material';
 
 const style = {
     position: 'absolute',
@@ -43,7 +43,7 @@ export default function CreatePostButton() {
 
 
     const {id} = useParams()
-    const addImage = ()=>{
+    const addPost = ()=>{
         const formData = new FormData()
         formData.append('content', input)
         formData.append('img', file)
@@ -76,23 +76,21 @@ export default function CreatePostButton() {
                 }}
                 style={{ height: 40}}
             >
-                hello
+                ADD POST
             </ColorButton>
             <Modal
                 open={open}
                 onClose={handleClose}
-                aria-labelledby="img-upload"
-                aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
                     <form>
                        <TextField fullWidth
                                   multiline
                                   onChange={(e) => setInput(values => e.target.value )}
-                                  sx={{minHeight: 300}}/>
+                                  sx={{mb:2}}/>
 
                 <input type='file' onChange={selectFile} style={{fontSize: 'medium'}}/>
-                        <Button variant='contained' disabled={!file} onClick={addImage}> Post</Button>
+                        <Button variant='contained' disabled={ !(input || file)} onClick={addPost}> Post</Button>
                     </form>
                 </Box>
             </Modal>

@@ -4,6 +4,7 @@ const PostController = require('../../../NETWORK/server/controllers/postControll
 
 router.post('/', PostController.create )
 router.get('/profile/:id', PostController.getProfilePosts)
+router.get('/list', PostController.getPosts)
 router.put('/:id', PostController.updateOne )
 router.delete('/:id', PostController.deleteOne )
 

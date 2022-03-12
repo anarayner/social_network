@@ -9,7 +9,9 @@ import {fetchOneUser} from '../services/UsersService';
 import ImgUploadModal from './profile/imgUploadModal';
 
 const UserInfo =observer (() => {
-        let {id} = useParams()
+        const {id} = useParams()
+        const {user} = useContext(Context);
+
         // if(!id){
         //     id = localStorage.getItem('id')
         // }
@@ -70,28 +72,44 @@ const UserInfo =observer (() => {
                 </Grid>
                 <Grid item xs={12} md={3}>
                     <Box>
+                        {user.user.id === id?
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                sx={{mt: 3}}
+                                size='small'
 
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            sx={{mt: 3}}
-                            size='small'
-                        >
-                            Follow
-                        </Button>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            sx={{mt: 3}}
-                            size='small'
+                            >
+                                Edit Profile
+                            </Button>
+                            :
+                            <>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    sx={{mt: 3}}
+                                    size='small'
+                                >
+                                    Follow
+                                </Button>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    sx={{mt: 3}}
+                                    size='small'
 
-                        >
-                            Send message
-                        </Button>
+                                >
+                                    Send message
+                                </Button>
+                            </>
+                        }
+
                     </Box>
                 </Grid>
             </Grid>

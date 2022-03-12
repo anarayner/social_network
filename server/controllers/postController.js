@@ -39,7 +39,6 @@ class PostController{
     async getPosts(req, res, next){
         try{
             const {id} = req.body
-            const user = await User.findById(id)
             let posts = await Post.find({})
             return res.json (posts)
         }catch (e) {

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a46ae425-e92c-4f5f-9178-645084f0dcea" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../pages/FeedPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/sidebar/SideBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/UserInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/UserInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/assets/listItems.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/sidebar/listItems.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/login/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/login/LoginForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pages/UserPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../pages/UserPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../util/consts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../util/consts.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="26GnCekBVBolLqOqJtP54ZBXC0t" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a46ae425-e92c-4f5f-9178-645084f0dcea" name="Changes" comment="" />
+      <created>1647058666643</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1647058666643</updated>
+      <workItem from="1647058667684" duration="18000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

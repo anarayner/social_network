@@ -14,14 +14,12 @@ import {useParams} from 'react-router-dom';
 const Post = ({post}) => {
     let {id} = useParams()
     const [postUser, setPostUser] = useState([])
-    // if(!id){
-    //     id = localStorage.getItem('id')
-    // }
-    useEffect(()=>{
 
+    useEffect(()=>{
         fetchOneUser(id).then(data => {
             setPostUser(data[0])})
     },[id])
+
     return (
         <Card sx={{borderRadius: 2, mt: 2}}>
             <CardHeader

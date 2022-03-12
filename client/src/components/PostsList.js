@@ -5,18 +5,9 @@ import {fetchOneUser} from '../services/UsersService';
 import {useParams} from 'react-router-dom';
 import {getProfilePosts} from '../services/PostService';
 
-const PostsList = observer( () => {
+const PostsList = observer( ({posts}) => {
     let {id} = useParams()
-    const [posts, setPosts] = useState([])
-    // if(!id){
-    //     id = localStorage.getItem('id')
-    // }
 
-    useEffect(()=>{
-        getProfilePosts(id).then(data =>{
-            setPosts(data)})
-
-    },[id])
 
     return (
         <>

@@ -3,15 +3,15 @@ import {alpha, Avatar, Badge, Box, Button, Divider, InputBase, List, Toolbar} fr
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {Search} from '@material-ui/icons';
-import theme from '../theme';
+import theme from '../../theme';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import {mainListItems} from './assets/listItems';
+import SidebarList, {mainListItems} from './listItems';
 import {styled} from '@mui/system';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiDrawer from '@mui/material/Drawer';
-import {Context} from '../index';
+import {Context} from '../../index';
 
 
 const drawerWidth = 240
@@ -165,7 +165,7 @@ const SideBar = () => {
                 <Divider sx={{backgroundColor: theme.palette.background.default}}/>
 
                 <List component='nav' sx={{minHeight: '100vh'}}>
-                    {mainListItems }
+                    <SidebarList user={user}/>
                 </List>
 
             </Drawer>

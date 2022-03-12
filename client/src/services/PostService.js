@@ -6,3 +6,9 @@ export const getProfilePosts = async (id)=>{
     console.log(data)
     return data
 }
+
+export const getPosts = async ()=>{
+    const {data} = await $api.get('posts/list')
+    console.log(data)
+    return data
+}
