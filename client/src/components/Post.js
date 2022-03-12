@@ -19,6 +19,7 @@ const Post = ({post}) => {
         fetchOneUser(id).then(data => {
             setPostUser(data[0])})
     },[id])
+    console.log(post)
 
     return (
         <Card sx={{borderRadius: 2, mt: 2}}>

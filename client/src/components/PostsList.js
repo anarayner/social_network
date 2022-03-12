@@ -8,7 +8,6 @@ import {getProfilePosts} from '../services/PostService';
 const PostsList = observer( ({posts}) => {
     let {id} = useParams()
 
-
     return (
         <>
             {posts.map( post =>
