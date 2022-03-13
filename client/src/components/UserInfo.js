@@ -5,28 +5,14 @@ import Divider from '@mui/material/Divider';
 import {useParams} from 'react-router-dom';
 import {Context} from '../index';
 import {observer} from 'mobx-react';
-import {fetchOneUser} from '../services/UsersService';
 import ImgUploadModal from './profile/imgUploadModal';
 
-const UserInfo =observer (() => {
+const UserInfo =observer (({userInfo}) => {
         const {id} = useParams()
         const {user} = useContext(Context);
 
-        // if(!id){
-        //     id = localStorage.getItem('id')
-        // }
-
-        const [userInfo, setUserInfo] = useState([])
-        useEffect(()=>{
-
-                fetchOneUser(id).then(data => {
-                    setUserInfo(data[0])
-                })
-           },[id])
-
         return (
         <div>
-
                 <div key={userInfo.id}>
         <Box sx={{
             backgroundColor: '#fff',

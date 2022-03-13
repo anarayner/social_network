@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,16 +10,17 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PostComments from './PostComments';
 import {fetchOneUser} from '../services/UsersService';
 import {useParams} from 'react-router-dom';
+import { toJS } from 'mobx'
 
 const Post = ({post}) => {
     let {id} = useParams()
     const [postUser, setPostUser] = useState([])
 
     useEffect(()=>{
-        fetchOneUser(id).then(data => {
+        fetchOneUser(post.userId).then(data => {
             setPostUser(data[0])})
     },[id])
-    console.log(post)
+    console.log(toJS(post.userId))
 
     return (
         <Card sx={{borderRadius: 2, mt: 2}}>

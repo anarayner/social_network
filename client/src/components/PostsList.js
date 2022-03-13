@@ -5,13 +5,13 @@ import {fetchOneUser} from '../services/UsersService';
 import {useParams} from 'react-router-dom';
 import {getProfilePosts} from '../services/PostService';
 
-const PostsList = observer( ({posts}) => {
+const PostsList = observer( ({posts, users}) => {
     let {id} = useParams()
 
     return (
         <>
             {posts.map( post =>
-                <Post key={post._id} post={post} id={id}/>
+                <Post key={post._id} post={post} id={id} />
             )}
         </>
     );

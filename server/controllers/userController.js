@@ -37,9 +37,8 @@ class UserController{
               password =  await bcrypt.hash(password, 2)
               return password
            }
-
           const user = await User.findByIdAndUpdate(id, {$set: req.body})
-            res.json(user)
+            res.json({message: 'Update Success!'})
         }catch (e) {
             next(e)
         }
@@ -52,7 +51,7 @@ class UserController{
             let imgFileName = uuid.v4 () + '.jpg'
             await profilePicture.mv (path.resolve (__dirname, '..', 'static', imgFileName))
             const user = await User.findByIdAndUpdate(id, {profilePicture: imgFileName})
-            return res.json (user)
+            return res.json ({message: 'Upload Success!'})
 
         }catch (e) {
             res.json (e.message)
@@ -65,6 +64,24 @@ class UserController{
             res.json(user)
         }catch (e) {
             next(e)
+        }
+    }
+
+    async follow(req, res, next){
+        try{
+            const {id} = req.params
+            const user = await User.find({_id: id, followers: req.body.userId})
+              if(user) return ApiError.BadRequest('You followed this user.')
+            const newUser = await User.findByIdAndUpdate({_id: id},
+                {$push: {followers: req.body.userId}},
+                {new: true}).populate('followers following', '-password')
+            await User.findByIdAndUpdate({_id: req.body.userId},
+                {$push: {following: id}},
+                {new: true})
+            res.json({newUser})
+
+        }catch (e) {
+            next(ApiError.BadRequest(e.message))
         }
     }
 

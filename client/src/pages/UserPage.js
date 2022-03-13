@@ -11,7 +11,7 @@ import CreatePost from '../components/CreatePost';
 import {Context} from '../index';
 import SideBar from '../components/sidebar/SideBar';
 import PostsList from '../components/PostsList';
-import {fetchUsers} from '../services/UsersService';
+import {fetchOneUser, fetchUsers} from '../services/UsersService';
 import UserList from '../components/UserList';
 import {useParams} from 'react-router-dom';
 import theme from '../theme';
@@ -20,27 +20,22 @@ import {getProfilePosts} from '../services/PostService';
 
 const UserPage = observer(() => {
     const {user, usersData} = useContext(Context);
-    let {id} = useParams()
-    // if(!id){
-    //     id = localStorage.getItem('id')
-    // }
-        console.log(id)
-        useEffect(()=>{
-        fetchUsers().then(data =>{
-            usersData.setUsers(data)})
-    },[])
+    const {id} = useParams()
+
     const [posts, setPosts] = useState([])
+    const [userInfo, setUserInfo] = useState([])
 
     useEffect(()=>{
+        fetchUsers().then(data =>{
+            usersData.setUsers(data)})
         getProfilePosts(id).then(data =>{
             setPosts(data)})
+        fetchOneUser(id).then(data => {
+            setUserInfo(data[0])
+        })
+    },[id, usersData])
 
-    },[id])
 
-
-
-
-    console.log(user)
 
     return (
         <Box sx={{display: 'flex', minHeight: '100vh'}}>
@@ -56,9 +51,9 @@ const UserPage = observer(() => {
                           <Grid container spacing={3}>
                        {/* Posts */}
                        <Grid item xs={12} md={10} lg={9} >
-                           <UserInfo />
+                           <UserInfo userInfo={userInfo}/>
                            <CreatePost/>
-                           <PostsList posts={posts}/>
+                           <PostsList posts={posts} />
                        </Grid>
                        {/* message */}
                        <Grid item xs={12} md={2} lg={3}>

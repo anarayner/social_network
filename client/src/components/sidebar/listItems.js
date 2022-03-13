@@ -4,6 +4,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
+import FeedIcon from '@mui/icons-material/Feed';
+
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import EmailIcon from '@mui/icons-material/Email';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -40,7 +42,7 @@ const SidebarList = ({user}) => {
             </ListItemButton>
             <ListItemButton onClick={() => navigate(FEED_ROUTE)}>
                 <ListItemIcon>
-                    <HomeIcon sx={{color: theme.palette.background.default}}/>
+                    <FeedIcon sx={{color: theme.palette.background.default}}/>
                 </ListItemIcon>
                 <ListItemText primary="Feed" />
             </ListItemButton>
