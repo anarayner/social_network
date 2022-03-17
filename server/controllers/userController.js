@@ -70,15 +70,74 @@ class UserController{
     async follow(req, res, next){
         try{
             const {id} = req.params
-            const user = await User.find({_id: id, followers: req.body.userId})
-              if(user) return ApiError.BadRequest('You followed this user.')
+            const user = await User.find({_id: id, followers: req.body.id})
+            if (user.length > 0) {
+                return res.status(500).json ({message: 'You followed this user.'})
+            }
             const newUser = await User.findByIdAndUpdate({_id: id},
-                {$push: {followers: req.body.userId}},
-                {new: true}).populate('followers following', '-password')
-            await User.findByIdAndUpdate({_id: req.body.userId},
-                {$push: {following: id}},
-                {new: true})
+                 {$push: {followers: req.body.id}})
+            await User.findByIdAndUpdate({_id: req.body.id},
+                 {$push: {following: id}})
+            res.json(newUser)
+        }catch (e) {
+            next(e)
+        }
+    }
+
+    async unfollow(req, res, next){
+        try{
+            const {id} = req.params
+            const newUser = await User.findByIdAndUpdate({_id: id},
+                {$pull: {followers: req.body.id}})
+            await User.findByIdAndUpdate({_id: req.body.id},
+                {$pull: {following: id}})
             res.json({newUser})
+        }catch (e) {
+            next(e)
+        }
+    }
+
+    async userFollowing(req, res, next){
+        try{
+            const {id} = req.params
+            const user = await User.find({_id: id})
+            const following = await Promise.all(
+                user[0].following.map(id => {return User.findById(id)}))
+            let followingList = []
+            following.map(user =>{
+                const {_id, username, profilePicture} = user
+                followingList.push({_id, username, profilePicture})
+            })
+            res.json(followingList)
+        }catch (e) {
+            next(e)
+        }
+    }
+    async userFollowers(req, res, next){
+        try{
+            const {id} = req.params
+            const user = await User.find({_id: id})
+            const followers = await Promise.all(
+                user[0].followers.map(id => {return User.findById(id)}))
+            let followingList = []
+            followers.map(user =>{
+                const {_id, username, profilePicture} = user
+                followingList.push({_id, username, profilePicture})
+            })
+            res.json(followingList)
+        }catch (e) {
+            next(e)
+        }
+    }
+    async checkFollow(req, res, next){
+        try{
+            const {id} = req.params
+                const user = await User.find ({_id: '622902eace775657e004db83' })
+                let bool = false
+                if (user[0].following.includes (id)) {
+                    bool = true
+                }
+                res.json (bool)
 
         }catch (e) {
             next(ApiError.BadRequest(e.message))
@@ -88,3 +147,5 @@ class UserController{
 }
 
 module.exports = new UserController()
+
+

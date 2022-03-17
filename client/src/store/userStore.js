@@ -2,6 +2,7 @@ import {makeAutoObservable} from 'mobx';
 import AuthService from '../services/AuthService';
 import axios from 'axios';
 import {API_URL_CONST} from '../http';
+import * as UserService from '../services/UsersService';
 
 export default class userStore{
     _isAuth = false;
@@ -26,15 +27,13 @@ export default class userStore{
     async login(email, password){
         try{
             const response = await AuthService.login(email, password)
-            // console.log(response.data)
             localStorage.setItem('token', response.data.accessToken)
             localStorage.setItem('id', response.data.user.id)
             this.setIsAuth(true)
             this.setUser(response.data.user)
-            console.log(response.data.user.id);
 
         }catch (e) {
-            console.log(e)
+            // console.log(e)
             alert(e.response?.data?.message)
         }
     }
@@ -49,7 +48,6 @@ export default class userStore{
 
         }catch (e) {
             console.log(e)
-
             alert(e.response?.data?.message)
         }
     }
@@ -75,4 +73,22 @@ export default class userStore{
             alert(e.response?.data?.message)
         }
     }
+
+    // async follow(id, userId){
+    //     try{
+    //         const response = await UserService.follow(id, userId)
+    //         console.log(response.data)
+    //         this.setUser(response.data.user)
+    //     }catch (e) {
+    //         (e.response?.data?.message)
+    //     }
+    // }
+    // async unfollow(id, userId){
+    //     try{
+    //         const response = await UserService.unfollow(id, userId)
+    //         this.setUser(response.data.user)
+    //     }catch (e) {
+    //         alert(e.response?.data?.message)
+    //     }
+    // }
 }

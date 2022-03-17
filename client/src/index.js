@@ -5,17 +5,20 @@ import './index.css';
 import userStore from './store/userStore';
 import postStore from './store/postStore'
 import usersStore from './store/usersStore'
+import currentUserStore from './store/currentUserStore';
 
 
 const user = new userStore()
-const post = new postStore()
+const posts = new postStore()
 const usersData = new usersStore()
+const currentUser = new currentUserStore()
 
 
-export const Context = createContext({user, post, usersData})
+
+export const Context = createContext({user, posts, usersData, currentUser})
 
 ReactDOM.render(
-    <Context.Provider value={{user, post, usersData}}>
+    <Context.Provider value={{user, posts, usersData,currentUser}}>
     <App />
     </Context.Provider>,
   document.getElementById('root')

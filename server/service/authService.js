@@ -31,7 +31,6 @@ class AuthService{
     }
 
     async activation(activationLink){
-        console.log('hello')
         const user = await UserModel.findOne({activationLink})
         if (!user){
             throw ApiError.BadRequest('Invalid activation link')
@@ -40,7 +39,6 @@ class AuthService{
         user.save()
     }
     async login (email, password){
-        console.log(email)
         try {
             const user = await UserModel.findOne ({email})
             if (!user) {

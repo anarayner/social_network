@@ -7,33 +7,47 @@ import {
     Paper,
 } from '@mui/material';
 import UserInfo from '../components/UserInfo';
-import CreatePost from '../components/CreatePost';
 import {Context} from '../index';
 import SideBar from '../components/sidebar/SideBar';
 import PostsList from '../components/PostsList';
-import {fetchOneUser, fetchUsers} from '../services/UsersService';
+import {
+    checkFollow,
+    fetchOneUser,
+    fetchUserFollowers,
+    fetchUserFollowing,
+    fetchUsers,
+    follow
+} from '../services/UsersService';
 import UserList from '../components/UserList';
 import {useParams} from 'react-router-dom';
 import theme from '../theme';
-import {getProfilePosts} from '../services/PostService';
+import UserFollow from '../components/UserFollow';
+import {Typography} from '@material-ui/core';
+import CreatePostButton from '../components/profile/CreatePostButton';
 
 
 const UserPage = observer(() => {
-    const {user, usersData} = useContext(Context);
+    const {posts, usersData, currentUser} = useContext(Context);
     const {id} = useParams()
 
-    const [posts, setPosts] = useState([])
-    const [userInfo, setUserInfo] = useState([])
+    const [userFollowing, setUserFollowing] = useState([])
+    const [userFollowers, setUserFollowers] = useState([])
+    const [bool, setBool] = useState([])
+
+
 
     useEffect(()=>{
-        fetchUsers().then(data =>{
-            usersData.setUsers(data)})
-        getProfilePosts(id).then(data =>{
-            setPosts(data)})
-        fetchOneUser(id).then(data => {
-            setUserInfo(data[0])
-        })
-    },[id, usersData])
+        usersData.fetchUsers()
+        currentUser.fetchOneUser(id)
+        posts.fetchProfilePosts(id)
+        fetchUserFollowing(id).then(data =>{
+            setUserFollowing(data)})
+        fetchUserFollowers(id).then(data =>{
+            setUserFollowers(data)})
+        checkFollow(id).then(data =>{
+            setBool(data)})
+    },[id])
+
 
 
 
@@ -51,12 +65,13 @@ const UserPage = observer(() => {
                           <Grid container spacing={3}>
                        {/* Posts */}
                        <Grid item xs={12} md={10} lg={9} >
-                           <UserInfo userInfo={userInfo}/>
-                           <CreatePost/>
+                           <UserInfo  bool={bool} />
+                           <CreatePostButton/>
                            <PostsList posts={posts} />
                        </Grid>
                        {/* message */}
                        <Grid item xs={12} md={2} lg={3}>
+
                            <Paper
                                sx={{
                                    p: 2,
@@ -65,6 +80,30 @@ const UserPage = observer(() => {
                                }}
                            >
                                <UserList/>
+                           </Paper>
+                           <Paper
+                               sx={{
+                                   p: 2, mt:2,
+                                   display: 'flex',
+                                   flexDirection: 'column',
+                               }}
+                           >
+                               <Typography variant="body1"  >
+                                   You follow
+                               </Typography>
+                               <UserFollow props={userFollowing}/>
+                           </Paper>
+                           <Paper
+                               sx={{
+                                   p: 2, mt:2,
+                                   display: 'flex',
+                                   flexDirection: 'column',
+                               }}
+                           >
+                               <Typography variant="body1"  >
+                                   Your followers
+                               </Typography>
+                               <UserFollow props={userFollowers}/>
                            </Paper>
                        </Grid>
                        </Grid>

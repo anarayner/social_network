@@ -1,16 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Post from './Post';
 import {observer} from 'mobx-react';
 import {fetchOneUser} from '../services/UsersService';
 import {useParams} from 'react-router-dom';
-import {getProfilePosts} from '../services/PostService';
+import {fetchProfilePosts} from '../services/PostService';
+import {Context} from '../index';
 
-const PostsList = observer( ({posts, users}) => {
+const PostsList = observer( () => {
     let {id} = useParams()
+    const {posts} = useContext(Context);
 
     return (
         <>
-            {posts.map( post =>
+            {posts.posts.map( post =>
                 <Post key={post._id} post={post} id={id} />
             )}
         </>

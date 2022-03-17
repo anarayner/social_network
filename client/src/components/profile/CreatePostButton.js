@@ -2,13 +2,14 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import {useState} from 'react';
-import {uploadPost} from '../../services/UsersService';
+import {useContext, useState} from 'react';
+import {uploadPost} from '../../services/PostService';
 import {useParams} from 'react-router-dom';
 import theme from '../../theme';
 import {styled} from '@mui/system';
 import {grey} from '@mui/material/colors';
 import {Card, TextField} from '@mui/material';
+import {Context} from '../../index';
 
 const style = {
     position: 'absolute',
@@ -35,20 +36,22 @@ export default function CreatePostButton() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [input, setInput] = useState(null)
+    const [input, setInput] = useState('')
     const [file, setFile] = useState(null)
     const selectFile = (e) => {
         setFile(e.target.files[0])
     }
 
+    const {posts} = useContext(Context);
 
     const {id} = useParams()
-    const addPost = ()=>{
+    const addPost = (e)=>{
+        e.preventDefault()
         const formData = new FormData()
         formData.append('content', input)
         formData.append('img', file)
         formData.append('userId', id)
-        uploadPost(formData).then((data) => setOpen(false))
+        posts.uploadPost(formData).then(() => setOpen(false))
     }
 
 

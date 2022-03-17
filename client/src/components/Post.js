@@ -10,23 +10,25 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PostComments from './PostComments';
 import {fetchOneUser} from '../services/UsersService';
 import {useParams} from 'react-router-dom';
-import { toJS } from 'mobx'
+import Moment from 'react-moment';
+import {observer} from 'mobx-react';
+import {Context} from '../index';
 
 const Post = ({post}) => {
     let {id} = useParams()
     const [postUser, setPostUser] = useState([])
+    const {currentUser} = useContext(Context);
 
     useEffect(()=>{
         fetchOneUser(post.userId).then(data => {
             setPostUser(data[0])})
     },[id])
-    console.log(toJS(post.userId))
 
     return (
         <Card sx={{borderRadius: 2, mt: 2}}>
             <CardHeader
                 avatar={
-                    <Avatar src={'http://localhost:7000/' + postUser.profilePicture}/>
+                    <Avatar src={'http://localhost:7000/' + currentUser.currentUser.profilePicture}/>
                 }
                 action={
                     <IconButton aria-label="settings">
@@ -34,7 +36,7 @@ const Post = ({post}) => {
                     </IconButton>
                 }
                 title={postUser.username}
-                subheader="March 3, 2022"
+                subheader={<Moment fromNow>{post.createdAt}</Moment>}
             />
 
             <CardMedia
@@ -54,4 +56,4 @@ const Post = ({post}) => {
     );
 };
 
-export default Post;
+export default observer(Post);

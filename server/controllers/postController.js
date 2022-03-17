@@ -27,7 +27,7 @@ class PostController{
         }
     }
 
-    async getProfilePosts(req, res, next){
+    async fetchProfilePosts(req, res, next){
         try{
             const {id} = req.params
           let posts = await Post.find({userId: id})
@@ -36,9 +36,8 @@ class PostController{
             next(ApiError.BadRequest(e.message))
         }
     }
-    async getPosts(req, res, next){
+    async fetchPosts(req, res, next){
         try{
-            const {id} = req.body
             let posts = await Post.find({})
             return res.json (posts)
         }catch (e) {
