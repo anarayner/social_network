@@ -9,15 +9,10 @@ import ImgUploadModal from './profile/imgUploadModal';
 import FollowButton from './profile/FollowButton';
 
 
-const UserInfo =observer (({bool}) => {
+const UserInfo =observer (() => {
         const {id} = useParams()
         const {user} = useContext(Context);
         const {posts, currentUser} = useContext(Context);
-        console.log(currentUser.currentUser.followers)
-   // if(CurrentUser.followers){
-   //     console.log(CurrentUser.following.length)
-   // }
-
 
         return (
         <Paper>
@@ -69,7 +64,7 @@ const UserInfo =observer (({bool}) => {
                                     textAlign: 'center',
                                 }}>
                                 <Typography variant="h3" color='textSecondary'>
-                                    2
+                                    {currentUser.userFollowers.length}
                                 </Typography>
                                 <Typography variant="body2" color='textSecondary'>
                                     follower
@@ -82,7 +77,7 @@ const UserInfo =observer (({bool}) => {
                                     textAlign: 'center',
                                 }}>
                                     <Typography variant="h3" color='textSecondary'>
-                                        2
+                                        {currentUser.userFollowing.length}
                                     </Typography>
                                     <Typography variant="body2" color='textSecondary' align='center'>
                                         following
@@ -120,7 +115,7 @@ const UserInfo =observer (({bool}) => {
                             </Button>
                             :
                             <>
-                                <FollowButton bool={bool}/>
+                                <FollowButton/>
                                 <Button
                                     type="submit"
                                     fullWidth

@@ -15,7 +15,7 @@ export const fetchPosts = async ()=>{
 
 export const uploadPost = async (post)=>{
     const {data} = await $api.post('/posts', post)
-    console.log(data)
+    // console.log(data)
     return data
 }
 

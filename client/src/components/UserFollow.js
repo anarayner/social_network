@@ -10,11 +10,11 @@ import Typography from '@mui/material/Typography';
 import {observer} from 'mobx-react';
 import {USER_ROUTE} from '../util/consts';
 import {useNavigate, useParams} from 'react-router-dom';
-import {fetchUserFollowing} from '../services/UsersService';
 
 const UserFollow = observer(({props})=> {
     const {id} = useParams()
     const navigate = useNavigate()
+    const { currentUser} = useContext(Context);
 
 
 

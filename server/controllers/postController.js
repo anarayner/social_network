@@ -59,6 +59,23 @@ class PostController{
         }
     }
 
+    async likePost(req, res, next){
+        try{
+            const {id} = req.params
+            const post = await Post.findById(id)
+            if(!post.likes.includes(req.body.userId)){
+                await post.updateOne({$push: {likes: req.body.userId}})
+                res.json({mes: 'Liked!'})
+            } else {
+                await post.updateOne({$pull: {likes: req.body.userId}})
+                res.json({mes: 'Disliked!'})
+            }
+        }catch (e) {
+            next(ApiError.BadRequest(e.message))
+        }
+    }
+
+
 }
 
 module.exports = new PostController()

@@ -7,16 +7,14 @@ import {observer} from 'mobx-react';
 
 
 
-const FollowButton = ({bool}) => {
+const FollowButton = () => {
     const {user, currentUser} = useContext(Context)
     const {id} = useParams()
-
+console.log(user.user)
     useEffect(()=>{
             currentUser.checkFollow(id)
     },[id])
 
-console.log(currentUser.followed)
-    const [followed, setFollowed] = useState(bool)
     const handleFollow= ()=>{
         const formData = new FormData()
         formData.append('id', user.user.id)

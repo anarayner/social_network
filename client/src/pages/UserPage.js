@@ -11,12 +11,8 @@ import {Context} from '../index';
 import SideBar from '../components/sidebar/SideBar';
 import PostsList from '../components/PostsList';
 import {
-    checkFollow,
-    fetchOneUser,
     fetchUserFollowers,
     fetchUserFollowing,
-    fetchUsers,
-    follow
 } from '../services/UsersService';
 import UserList from '../components/UserList';
 import {useParams} from 'react-router-dom';
@@ -32,23 +28,20 @@ const UserPage = observer(() => {
 
     const [userFollowing, setUserFollowing] = useState([])
     const [userFollowers, setUserFollowers] = useState([])
-    const [bool, setBool] = useState([])
-
 
 
     useEffect(()=>{
         usersData.fetchUsers()
         currentUser.fetchOneUser(id)
         posts.fetchProfilePosts(id)
+        currentUser.fetchUserFollowing(id)
+        currentUser.fetchUserFollowers(id)
         fetchUserFollowing(id).then(data =>{
             setUserFollowing(data)})
         fetchUserFollowers(id).then(data =>{
             setUserFollowers(data)})
-        checkFollow(id).then(data =>{
-            setBool(data)})
-    },[id])
 
-
+       },[id])
 
 
     return (
@@ -65,7 +58,7 @@ const UserPage = observer(() => {
                           <Grid container spacing={3}>
                        {/* Posts */}
                        <Grid item xs={12} md={10} lg={9} >
-                           <UserInfo  bool={bool} />
+                           <UserInfo  />
                            <CreatePostButton/>
                            <PostsList posts={posts} />
                        </Grid>

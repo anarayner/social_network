@@ -20,8 +20,6 @@ export const uploadProfilePicture = async (id, img)=>{
     return data
 }
 
-
-
 export const fetchUserFollowing = async (id)=>{
     const {data} = await $api.get('/user/following/'+id)
     // console.log(data)
@@ -36,18 +34,18 @@ export const fetchUserFollowers = async (id)=>{
 
 export const follow = async (id, userId)=>{
     const {data} = await $api.patch('/user/follow/'+id, userId)
-    console.log(data)
+    // console.log(data)
     return data
 }
 
 export const unfollow = async (id, userId)=>{
     const {data} = await $api.patch('/user/unfollow/'+id, userId)
-    console.log(data)
+    // console.log(data)
     return data
 }
 
 export const checkFollow = async (id, userId)=>{
     const {data} = await $api.get('/user/follow/check/'+id, userId)
-    console.log(data)
+    // console.log(data)
     return data
 }

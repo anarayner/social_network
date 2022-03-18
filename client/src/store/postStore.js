@@ -31,7 +31,7 @@ export default class postsStore{
     async fetchProfilePosts(id){
         try{
             const posts = await PostService.fetchProfilePosts(id)
-            console.log(posts)
+            // console.log(posts)
             this.setPosts(posts.reverse())
         }catch (e) {
             console.log(e)
@@ -41,7 +41,7 @@ export default class postsStore{
     async fetchPosts(){
         try{
             const posts = await PostService.fetchPosts()
-            console.log(posts)
+            // console.log(posts)
             this.setPosts(posts.reverse())
         }catch (e) {
             console.log(e)

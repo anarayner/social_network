@@ -3,11 +3,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {uploadProfilePicture} from '../../services/UsersService';
 import {useParams} from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import {PhotoCamera} from '@material-ui/icons';
+import {Context} from '../../index';
 
 const style = {
     position: 'absolute',
@@ -22,6 +23,9 @@ const style = {
 };
 
 export default function ImgUploadModal() {
+    const {currentUser} = useContext(Context);
+
+
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -34,7 +38,7 @@ export default function ImgUploadModal() {
     const addImage = ()=>{
         const formData = new FormData()
         formData.append('profilePicture', file)
-        uploadProfilePicture(id, formData).then((data) => setOpen(false))
+        currentUser.uploadProfilePicture(id, formData).then((data) => setOpen(false))
     }
 
     return (

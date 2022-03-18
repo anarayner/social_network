@@ -21,7 +21,7 @@ export default class usersStore{
     async fetchUsers(){
         try{
             const users = await UsersService.fetchUsers()
-            console.log(users)
+            // console.log(users)
             this.setUsers(users)
         }catch (e) {
             console.log(e)
