@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import {
     Box,
@@ -8,18 +8,18 @@ import {
 } from '@mui/material';
 import {Context} from '../index';
 import SideBar from '../components/sidebar/SideBar';
-import PostsList from '../components/posts/PostsList';
 import UserList from '../components/UserList';
 import theme from '../theme';
 
 
-const FeedPage = observer(() => {
+const UsersPage = observer(() => {
     const {posts, usersData} = useContext(Context);
 
         useEffect(()=>{
             posts.fetchPosts()
             usersData.fetchUsers()
         },[posts, usersData])
+
 
     return (
         <Box sx={{display: 'flex', minHeight: '100vh'}}>
@@ -35,11 +35,6 @@ const FeedPage = observer(() => {
                           <Grid container spacing={3}>
                        {/* Posts */}
                        <Grid item xs={12} md={10} lg={9} >
-                           <PostsList />
-
-                       </Grid>
-                       {/* message */}
-                       <Grid item xs={12} md={2} lg={3}>
                            <Paper
                                sx={{
                                    p: 2,
@@ -49,6 +44,11 @@ const FeedPage = observer(() => {
                            >
                                <UserList/>
                            </Paper>
+
+                       </Grid>
+                       {/* message */}
+                       <Grid item xs={12} md={2} lg={3}>
+
                        </Grid>
                        </Grid>
                </Container>
@@ -58,4 +58,4 @@ const FeedPage = observer(() => {
     );
 });
 
-export default FeedPage;
+export default UsersPage;

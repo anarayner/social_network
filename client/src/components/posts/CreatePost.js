@@ -1,5 +1,5 @@
 import React from 'react';
-import CreatePostButton from './profile/CreatePostButton';
+import CreatePostButton from '../profile/CreatePostButton';
 
 const CreatePost = () => {
     return (

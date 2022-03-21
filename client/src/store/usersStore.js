@@ -1,8 +1,5 @@
 import {makeAutoObservable} from 'mobx';
-import axios from 'axios';
-import {API_URL_CONST} from '../http';
 import * as UsersService from '../services/UsersService';
-import {fetchUsers} from '../services/UsersService';
 
 export default class usersStore{
     _users = [];

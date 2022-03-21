@@ -1,18 +1,20 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import {Avatar, Box, Button, Grid, Paper} from '@mui/material';
 import {Typography} from '@material-ui/core';
 import Divider from '@mui/material/Divider';
 import {useParams} from 'react-router-dom';
-import {Context} from '../index';
+import {Context} from '../../index';
 import {observer} from 'mobx-react';
-import ImgUploadModal from './profile/imgUploadModal';
-import FollowButton from './profile/FollowButton';
+import ImgUploadModal from './imgUploadModal';
+import FollowButton from './FollowButton';
+import EditProfileButton from './EditProfileButton';
+import FollowersModal from './followersModal';
+import FollowingModal from './followingModal';
 
 
-const UserInfo =observer (() => {
+const UserInfo =observer (({userFollowers, userFollowing}) => {
         const {id} = useParams()
-        const {user} = useContext(Context);
-        const {posts, currentUser} = useContext(Context);
+        const {user, posts, currentUser} = useContext(Context);
 
         return (
         <Paper>
@@ -39,12 +41,9 @@ const UserInfo =observer (() => {
                         justifyContent: 'center'
                     }}>
                         <Avatar
-                            alt="Cindy Baker"
                             src={'http://localhost:7000/' + currentUser.currentUser.profilePicture}
                             sx={{height: 135, width: 135}}
-
                         />
-
                     </Box>
                     <ImgUploadModal/>
 
@@ -56,6 +55,12 @@ const UserInfo =observer (() => {
                                 {currentUser.currentUser.username}
                             </Typography>
                         <Divider sx={{pt:1, mb: 1}} />
+                        <Typography variant="body2"  >
+                            {currentUser.currentUser.city}
+                        </Typography>
+                        <Typography variant="body2"  >
+                            {currentUser.currentUser.description}
+                        </Typography>
                         <Grid container spacing={3}  sx={{mt: 1}}>
                             <Grid item sm={12} md={4}  >
                                 <Box sx={{display: 'column',
@@ -63,9 +68,8 @@ const UserInfo =observer (() => {
                                     justifyContent: 'center',
                                     textAlign: 'center',
                                 }}>
-                                <Typography variant="h3" color='textSecondary'>
-                                    {currentUser.userFollowers.length}
-                                </Typography>
+                                    <FollowersModal userFollowers={userFollowers}/>
+
                                 <Typography variant="body2" color='textSecondary'>
                                     follower
                                 </Typography>
@@ -76,9 +80,7 @@ const UserInfo =observer (() => {
                                     alignItems: 'center',
                                     textAlign: 'center',
                                 }}>
-                                    <Typography variant="h3" color='textSecondary'>
-                                        {currentUser.userFollowing.length}
-                                    </Typography>
+                                    <FollowingModal userFollowing={userFollowing}/>
                                     <Typography variant="body2" color='textSecondary' align='center'>
                                         following
                                     </Typography>
@@ -89,7 +91,10 @@ const UserInfo =observer (() => {
                                     alignItems: 'center',
                                     textAlign: 'center',
                                 }}>
-                                    <Typography variant="h3" color='textSecondary' >{posts.posts.length}</Typography>
+                                    <Button>
+                                        <Typography variant="h3" color='textSecondary' >{posts.posts.length}</Typography>
+                                    </Button>
+
                                     <Typography variant="body2" color='textSecondary' align='center'>
                                         posts
                                     </Typography>
@@ -102,17 +107,7 @@ const UserInfo =observer (() => {
                 <Grid item xs={12} md={3}>
                     <Box>
                         {user.user.id === id?
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                sx={{mt: 3}}
-                                size='small'
-
-                            >
-                                Edit Profile
-                            </Button>
+                            <EditProfileButton/>
                             :
                             <>
                                 <FollowButton/>

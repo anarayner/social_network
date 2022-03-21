@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Collapse from '@mui/material/Collapse';
@@ -8,7 +8,9 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CardActions from '@mui/material/CardActions';
 import {styled} from '@mui/material/styles';
-import theme from '../theme';
+import theme from '../../theme';
+import {red} from '@mui/material/colors';
+import {Context} from '../../index';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -21,20 +23,26 @@ const ExpandMore = styled((props) => {
     }),
 });
 
-const PostComments = () => {
+
+const PostComments = (postId, post, like) => {
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+    const {user, posts} = useContext(Context)
+    const [likes, setLikes] = useState(0)
+    // console.log(like)
+    const handleLike= ()=>{
+        // const formData = new FormData()
+        // formData.append('id', user.user.id)
+        // posts.likePost(postId, formData)
+        setLikes(likes+1)
+    }
+
     return (
         <>
         <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="share">
-                <ShareIcon />
-            </IconButton>
+
             <ExpandMore
                 expand={expanded}
                 onClick={handleExpandClick}

@@ -7,6 +7,8 @@ const UserSchema = new Schema({
     password: {type: String, required: true},
     isActivated: {type: Boolean, default: false},
     activationLink: {type: String},
+    city: {type: String},
+    description: {type: String},
     profilePicture: {type: String, default: '63df6dce-df09-4ef9-8516-3fc044b5ebd2.jpg'},
     followers: {type: Array, default: []},
     following: {type: Array, default: []}

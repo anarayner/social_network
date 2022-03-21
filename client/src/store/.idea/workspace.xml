@@ -2,14 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a46ae425-e92c-4f5f-9178-645084f0dcea" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../pages/FeedPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../components/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/sidebar/SideBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../components/UserInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/UserInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../components/assets/listItems.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/sidebar/listItems.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../components/login/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/login/LoginForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../components/posts/longMenu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../components/profile/EditProfileButton.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../components/profile/followersModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../components/profile/followingModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pages/UsersPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/CreatePost.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/posts/CreatePost.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/Post.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/posts/Post.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/PostComments.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/posts/PostComments.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/PostsList.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/posts/PostsList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/UserFollow.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/profile/UserFollow.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/UserInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/profile/UserInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/profile/CreatePostButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/profile/CreatePostButton.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/profile/imgUploadModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/profile/imgUploadModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/sidebar/listItems.js" beforeDir="false" afterPath="$PROJECT_DIR$/../components/sidebar/listItems.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pages/FeedPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../pages/FeedPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pages/UserPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../pages/UserPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../services/PostService.js" beforeDir="false" afterPath="$PROJECT_DIR$/../services/PostService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../services/UsersService.js" beforeDir="false" afterPath="$PROJECT_DIR$/../services/UsersService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/currentUserStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/currentUserStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/postStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/userStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/userStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usersStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/usersStore.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../util/consts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../util/consts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/controllers/postController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../server/controllers/postController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../server/controllers/userController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../server/models/User.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../server/router/postRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../server/router/postRouter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +53,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../store" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -44,6 +65,7 @@
       <option name="presentableId" value="Default" />
       <updated>1647058666643</updated>
       <workItem from="1647058667684" duration="18000" />
+      <workItem from="1647802762604" duration="785000" />
     </task>
     <servers />
   </component>

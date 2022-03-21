@@ -2,7 +2,6 @@ import {makeAutoObservable} from 'mobx';
 import AuthService from '../services/AuthService';
 import axios from 'axios';
 import {API_URL_CONST} from '../http';
-import * as UserService from '../services/UsersService';
 
 export default class userStore{
     _isAuth = false;
@@ -54,7 +53,7 @@ export default class userStore{
 
     async logout(){
         try{
-            const response = await AuthService.logout()
+            await AuthService.logout()
             localStorage.removeItem('token')
             this.setIsAuth(false)
             this.setUser({})
@@ -74,21 +73,4 @@ export default class userStore{
         }
     }
 
-    // async follow(id, userId){
-    //     try{
-    //         const response = await UserService.follow(id, userId)
-    //         console.log(response.data)
-    //         this.setUser(response.data.user)
-    //     }catch (e) {
-    //         (e.response?.data?.message)
-    //     }
-    // }
-    // async unfollow(id, userId){
-    //     try{
-    //         const response = await UserService.unfollow(id, userId)
-    //         this.setUser(response.data.user)
-    //     }catch (e) {
-    //         alert(e.response?.data?.message)
-    //     }
-    // }
 }

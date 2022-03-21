@@ -1,6 +1,6 @@
 require('dotenv').config()
 const ApiError = require('../errors/apiError')
-const authService = require ('../service/authService');
+require ('../service/authService');
 const bcrypt = require ('bcrypt');
 const User = require('../models/User')
 const path = require ('path');
@@ -37,8 +37,9 @@ class UserController{
               password =  await bcrypt.hash(password, 2)
               return password
            }
-          const user = await User.findByIdAndUpdate(id, {$set: req.body})
-            res.json({message: 'Update Success!'})
+            const {username, city, work, description } = req.body
+            const user = await User.findByIdAndUpdate(id, {$set: {username, city, work, description }})
+                       res.json(user)
         }catch (e) {
             next(e)
         }
@@ -51,10 +52,10 @@ class UserController{
             let imgFileName = uuid.v4 () + '.jpg'
             await profilePicture.mv (path.resolve (__dirname, '..', 'static', imgFileName))
             const user = await User.findByIdAndUpdate(id, {profilePicture: imgFileName})
-            return res.json ({message: 'Upload Success!'})
+            return res.json (user)
 
         }catch (e) {
-            res.json (e.message)
+            next(e)
         }
     }
     async deleteOne(req, res, next){

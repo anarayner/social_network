@@ -6,29 +6,26 @@ import {
     Grid,
     Paper,
 } from '@mui/material';
-import UserInfo from '../components/UserInfo';
+import UserInfo from '../components/profile/UserInfo';
 import {Context} from '../index';
 import SideBar from '../components/sidebar/SideBar';
-import PostsList from '../components/PostsList';
+import PostsList from '../components/posts/PostsList';
 import {
     fetchUserFollowers,
     fetchUserFollowing,
 } from '../services/UsersService';
-import UserList from '../components/UserList';
 import {useParams} from 'react-router-dom';
 import theme from '../theme';
-import UserFollow from '../components/UserFollow';
 import {Typography} from '@material-ui/core';
 import CreatePostButton from '../components/profile/CreatePostButton';
-
 
 const UserPage = observer(() => {
     const {posts, usersData, currentUser} = useContext(Context);
     const {id} = useParams()
+    console.log(id)
 
     const [userFollowing, setUserFollowing] = useState([])
     const [userFollowers, setUserFollowers] = useState([])
-
 
     useEffect(()=>{
         usersData.fetchUsers()
@@ -40,8 +37,7 @@ const UserPage = observer(() => {
             setUserFollowing(data)})
         fetchUserFollowers(id).then(data =>{
             setUserFollowers(data)})
-
-       },[id])
+       },[id, currentUser, posts, usersData])
 
 
     return (
@@ -58,9 +54,9 @@ const UserPage = observer(() => {
                           <Grid container spacing={3}>
                        {/* Posts */}
                        <Grid item xs={12} md={10} lg={9} >
-                           <UserInfo  />
+                           <UserInfo userFollowers={userFollowers} userFollowing={userFollowing}/>
                            <CreatePostButton/>
-                           <PostsList posts={posts} />
+                           <PostsList/>
                        </Grid>
                        {/* message */}
                        <Grid item xs={12} md={2} lg={3}>
@@ -72,32 +68,9 @@ const UserPage = observer(() => {
                                    flexDirection: 'column',
                                }}
                            >
-                               <UserList/>
+                               <Typography>Messages</Typography>
                            </Paper>
-                           <Paper
-                               sx={{
-                                   p: 2, mt:2,
-                                   display: 'flex',
-                                   flexDirection: 'column',
-                               }}
-                           >
-                               <Typography variant="body1"  >
-                                   You follow
-                               </Typography>
-                               <UserFollow props={userFollowing}/>
-                           </Paper>
-                           <Paper
-                               sx={{
-                                   p: 2, mt:2,
-                                   display: 'flex',
-                                   flexDirection: 'column',
-                               }}
-                           >
-                               <Typography variant="body1"  >
-                                   Your followers
-                               </Typography>
-                               <UserFollow props={userFollowers}/>
-                           </Paper>
+
                        </Grid>
                        </Grid>
                </Container>

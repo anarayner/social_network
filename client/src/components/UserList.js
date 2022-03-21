@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import {observer} from 'mobx-react';
 import {USER_ROUTE} from '../util/consts';
 import {useNavigate} from 'react-router-dom';
+import {Divider} from '@mui/material';
 
 const UserList = observer(()=> {
     const {usersData} = useContext(Context);
@@ -18,15 +19,16 @@ const UserList = observer(()=> {
 
 
     return (
-        <List dense sx={{ width: '100%', maxWidth: 300, bgcolor: 'background.paper' }}>
+        <List dense sx={{ width: '100%', bgcolor: 'background.paper' }}>
             {usersData.users.map((user) => {
                 return (
+                    <div key={user._id+1}>
                     <ListItem
                         key={user._id}
                         disablePadding
                         onClick={() => navigate(USER_ROUTE +'/' + user._id)}
                     >
-                        <ListItemButton>
+                        <ListItemButton >
                             <ListItemAvatar>
                                 <Avatar
                                     alt={`Avatar`}
@@ -38,6 +40,8 @@ const UserList = observer(()=> {
                             </Typography>
                         </ListItemButton>
                     </ListItem>
+                        <Divider sx={{mt: 1, mb: 1}}/>
+                    </div>
                 );
             })}
         </List>

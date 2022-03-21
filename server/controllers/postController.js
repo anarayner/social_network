@@ -21,6 +21,7 @@ class PostController{
                 return res.json(post)
             }
             const post = await Post.create ({content, userId, createdBy})
+
             return res.json(post)
         }catch (e) {
             next(ApiError.BadRequest(e.message))
@@ -30,7 +31,8 @@ class PostController{
     async fetchProfilePosts(req, res, next){
         try{
             const {id} = req.params
-          let posts = await Post.find({userId: id})
+            const posts = await Post.find({userId: id}).populate('userId')
+                // .populate({path: 'userId'})
             return res.json (posts)
         }catch (e) {
             next(ApiError.BadRequest(e.message))
@@ -38,7 +40,7 @@ class PostController{
     }
     async fetchPosts(req, res, next){
         try{
-            let posts = await Post.find({})
+            let posts = await Post.find({}).populate('userId')
             return res.json (posts)
         }catch (e) {
             next(ApiError.BadRequest(e.message))
@@ -53,23 +55,35 @@ class PostController{
     }
     async deleteOne(req, res, next){
         try{
-
+            const {id} = req.params
+            const posts = await Post.deleteOne({_id: id})
+            return res.json (posts)
         }catch (e) {
-
+            next(ApiError.BadRequest(e.message))
         }
     }
 
     async likePost(req, res, next){
         try{
+            const {postId} = req.body
+            const post = await Post.find({_id: postId})
+            if(!post[0].likes.includes(req.body.userId)){
+                await post[0].updateOne({$push: {likes: req.body.userId}})
+                res.json(post[0])
+            } else {
+                await post[0].updateOne({$pull: {likes: req.body.userId}})
+                res.json(post[0])
+            }
+            // res.json(post)
+        }catch (e) {
+            next(ApiError.BadRequest(e.message))
+        }
+    }
+    async fetchPostLikes(req, res, next){
+        try{
             const {id} = req.params
             const post = await Post.findById(id)
-            if(!post.likes.includes(req.body.userId)){
-                await post.updateOne({$push: {likes: req.body.userId}})
-                res.json({mes: 'Liked!'})
-            } else {
-                await post.updateOne({$pull: {likes: req.body.userId}})
-                res.json({mes: 'Disliked!'})
-            }
+            res.json(post.likes)
         }catch (e) {
             next(ApiError.BadRequest(e.message))
         }

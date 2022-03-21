@@ -1,15 +1,11 @@
 import {makeAutoObservable, runInAction} from 'mobx';
-import axios from 'axios';
-import {API_URL_CONST} from '../http';
 import * as UsersService from '../services/UsersService';
-import {fetchUserFollowing, fetchUsers, uploadProfilePicture} from '../services/UsersService';
 
 export default class currentUserStore{
     _currentUser = [];
     _followed = false;
     _userFollowing = [];
     _userFollowers = [];
-    _profilePicture = null
 
     constructor() {
         makeAutoObservable(this)
@@ -27,9 +23,7 @@ export default class currentUserStore{
     setUserFollowers(userFollowers){
         this._userFollowers = userFollowers
     }
-    setProfilePicture(profilePicture){
-        this._profilePicture = profilePicture
-    }
+
     get followed(){
         return this._followed
     }
@@ -43,9 +37,7 @@ export default class currentUserStore{
     get userFollowers(){
         return this._userFollowers
     }
-    get profilePicture(){
-        return this._profilePicture
-    }
+
 
     async fetchOneUser(id){
         try{
@@ -112,8 +104,19 @@ export default class currentUserStore{
 
     async uploadProfilePicture(id, img){
         try{
-            const image = await UsersService.uploadProfilePicture(id,img)
-            this.currentUser.profilePicture.replace(image)
+            const user = await UsersService.uploadProfilePicture(id,img)
+        }catch (e) {
+            console.log(e)
+        }
+    }
+
+    async updateUser(id, info){
+        try{
+            const user = await UsersService.updateUser(id, info)
+            console.log(user)
+            runInAction(()=> {
+
+            })
         }catch (e) {
             console.log(e)
         }

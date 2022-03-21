@@ -3,19 +3,13 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import {useContext, useEffect, useState} from 'react';
-import {Context} from '../index';
 import Typography from '@mui/material/Typography';
 import {observer} from 'mobx-react';
-import {USER_ROUTE} from '../util/consts';
-import {useNavigate, useParams} from 'react-router-dom';
+import {USER_ROUTE} from '../../util/consts';
+import {useNavigate} from 'react-router-dom';
 
-const UserFollow = observer(({props})=> {
-    const {id} = useParams()
+const UserFollow = observer(({props, setOpen})=> {
     const navigate = useNavigate()
-    const { currentUser} = useContext(Context);
-
 
 
     return (
@@ -25,14 +19,18 @@ const UserFollow = observer(({props})=> {
                     <ListItem
                         key={user._id}
                         disablePadding
-                        onClick={() => navigate(USER_ROUTE +'/' + user._id)}
+                        onClick={() =>{
+                            navigate(USER_ROUTE +'/' + user._id)
+                            setOpen(false)
+
+                        } }
                     >
                         <ListItemButton>
                             <ListItemAvatar>
-                                <Avatar
-                                    alt={`Avatar`}
-                                    src={'http://localhost:7000/' + user.profilePicture}
-                                />
+                                {/*<Avatar*/}
+                                {/*    alt={`Avatar`}*/}
+                                {/*    src={'http://localhost:7000/' + user.profilePicture}*/}
+                                {/*/>*/}
                             </ListItemAvatar>
                             <Typography variant="body2" color="text.secondary">
                                 {user.username}

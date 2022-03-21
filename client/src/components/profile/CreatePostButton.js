@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import {useContext, useState} from 'react';
-import {uploadPost} from '../../services/PostService';
 import {useParams} from 'react-router-dom';
 import theme from '../../theme';
 import {styled} from '@mui/system';

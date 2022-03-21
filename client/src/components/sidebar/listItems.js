@@ -11,7 +11,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import theme from '../../theme';
-import {FEED_ROUTE, USER_ROUTE} from '../../util/consts';
+import {FEED_ROUTE, USER_ROUTE, USERS_ROUTE} from '../../util/consts';
 import {useNavigate} from 'react-router-dom';
 
 
@@ -27,19 +27,20 @@ const SidebarList = ({user}) => {
                 <ListItemText primary="Home" />
             </ListItemButton>
 
-
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate(USERS_ROUTE)}>
                 <ListItemIcon>
                     <PeopleAltIcon sx={{color: theme.palette.background.default}}/>
                 </ListItemIcon>
-                <ListItemText primary="Friends" />
+                <ListItemText primary="Users" />
             </ListItemButton>
+
             <ListItemButton>
                 <ListItemIcon>
                     <EmailIcon sx={{color: theme.palette.background.default}}/>
                 </ListItemIcon>
                 <ListItemText primary="Chatroom" />
             </ListItemButton>
+
             <ListItemButton onClick={() => navigate(FEED_ROUTE)}>
                 <ListItemIcon>
                     <FeedIcon sx={{color: theme.palette.background.default}}/>

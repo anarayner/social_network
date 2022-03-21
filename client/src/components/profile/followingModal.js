@@ -1,11 +1,12 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import {useContext, useState} from 'react';
-import {useParams} from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import {PhotoCamera} from '@material-ui/icons';
+import UserFollow from './UserFollow';
+import {Typography} from '@material-ui/core';
+import {Button} from '@mui/material';
 import {Context} from '../../index';
 
 const style = {
@@ -20,30 +21,20 @@ const style = {
     p: 4,
 };
 
-export default function ImgUploadModal() {
+export default function FollowingModal({userFollowing}) {
     const {currentUser} = useContext(Context);
-
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [file, setFile] = useState(null)
-    const selectFile = (e) => {
-        setFile(e.target.files[0])
-    }
-    const {id} = useParams()
-    const addImage = ()=>{
-        const formData = new FormData()
-        formData.append('profilePicture', file)
-        currentUser.uploadProfilePicture(id, formData).then((data) => setOpen(false))
-    }
-
     return (
         <div>
-            <IconButton onClick={handleOpen} color="primary" aria-label="upload picture" component="span">
-                <PhotoCamera />
-            </IconButton>
+            <Button onClick={handleOpen}>
+                <Typography variant="h3" color='textSecondary'>
+                    {currentUser.userFollowing.length}
+                </Typography>
+            </Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -51,11 +42,7 @@ export default function ImgUploadModal() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <form>
-
-                <input type='file' onChange={selectFile} style={{fontSize: 'medium'}}/>
-                        <Button variant='contained' disabled={!file} onClick={addImage}> Upload</Button>
-                    </form>
+                    <UserFollow props={userFollowing} setOpen={setOpen} />
                 </Box>
             </Modal>
         </div>

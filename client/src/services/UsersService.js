@@ -49,3 +49,9 @@ export const checkFollow = async (id, userId)=>{
     // console.log(data)
     return data
 }
+
+export const updateUser = async (id, info)=>{
+    const {data} = await $api.put('/user/'+id, info)
+    // console.log(data)
+    return data
+}
