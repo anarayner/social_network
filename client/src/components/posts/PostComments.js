@@ -1,16 +1,17 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CardActions from '@mui/material/CardActions';
 import {styled} from '@mui/material/styles';
 import theme from '../../theme';
-import {red} from '@mui/material/colors';
+import LikeButton from './LikeButton';
+import {Divider, TextField, Typography} from '@mui/material';
+import Post from './Post';
 import {Context} from '../../index';
+import Comment from './Comment';
+
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -24,54 +25,48 @@ const ExpandMore = styled((props) => {
 });
 
 
-const PostComments = (postId, post, like) => {
+const PostComments = ({post}) => {
+    const {comments} = useContext(Context);
+
+
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-    const {user, posts} = useContext(Context)
-    const [likes, setLikes] = useState(0)
-    // console.log(like)
-    const handleLike= ()=>{
-        // const formData = new FormData()
-        // formData.append('id', user.user.id)
-        // posts.likePost(postId, formData)
-        setLikes(likes+1)
-    }
+
 
     return (
         <>
         <CardActions disableSpacing>
-
+            <LikeButton post={post}/>
             <ExpandMore
                 expand={expanded}
                 onClick={handleExpandClick}
                 aria-expanded={expanded}
                 aria-label="show more"
             >
+
                 <ExpandMoreIcon />
             </ExpandMore>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-                <Typography paragraph>Method:</Typography>
-                <Typography paragraph>
-                    Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-                    aside for 10 minutes.
-                </Typography>
+            <Typography sx={{pr:1, pl:1}}>{comments.comments.length} comments </Typography>
 
-                <Typography paragraph>
-                    Add rice and stir very gently to distribute. Top with artichokes and
-                    peppers, and cook without stirring, until most of the liquid is absorbed,
-                    15 to 18 minutes. Reduce heat to medium-low, add reserved shrimp and
-                    mussels, tucking them down into the rice, and cook again without
-                    stirring, until mussels have opened and rice is just tender, 5 to 7
-                    minutes more. (Discard any mussels that don’t open.)
-                </Typography>
-                <Typography>
-                    Set aside off of the heat to let rest for 10 minutes, and then serve.
-                </Typography>
-            </CardContent>
+
+        </CardActions>
+
+            <Collapse in={expanded}
+                  sx={{pb:2, pl:2, pr:2}}
+                  timeout="auto" unmountOnExit>
+                <Divider sx={{mb:2}}/>
+                {comments.comments.map(comment =>
+                    <Comment key={comment._id} comment={comment} />
+                )}
+
+                {/*<Divider sx={{mb:2, mt:2}}/>*/}
+                <TextField
+                    size='small'
+                    fullWidth
+                    multiline
+                    />
         </Collapse>
         </>
     );

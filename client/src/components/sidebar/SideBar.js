@@ -7,7 +7,7 @@ import theme from '../../theme';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import SidebarList, {mainListItems} from './listItems';
+import SidebarList from './listItems';
 import {styled} from '@mui/system';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiDrawer from '@mui/material/Drawer';

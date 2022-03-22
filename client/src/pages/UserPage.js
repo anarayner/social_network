@@ -46,7 +46,6 @@ const UserPage = observer(() => {
                 <Grid item xs={6} sm={4} md={3} lg={2}>
                    <SideBar />
                 </Grid>
-
                 <Grid item xs={6} sm={8} md={9} lg={10}
                       sx={{ ml:30}}
                 >

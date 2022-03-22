@@ -9,7 +9,7 @@ class PostController{
 
     async create(req, res, next){
         try{
-            const {content, userId, createdBy} = req.body
+            const {content, userId} = req.body
             if(req.files) {
                 const {img} = req.files
                 if(!img){
@@ -17,10 +17,10 @@ class PostController{
                 }
                 let imgFileName = uuid.v4() + '.jpg'
                 await img.mv(path.resolve (__dirname, '..', 'static', imgFileName))
-                const post = await Post.create({content,userId, createdBy, img: imgFileName})
+                const post = await Post.create({content,userId, img: imgFileName})
                 return res.json(post)
             }
-            const post = await Post.create ({content, userId, createdBy})
+            const post = await Post.create ({content, userId})
 
             return res.json(post)
         }catch (e) {

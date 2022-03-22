@@ -1,44 +1,26 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Moment from 'react-moment';
 import {observer} from 'mobx-react';
-import {Context} from '../../index';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import {red} from '@mui/material/colors';
-import ShareIcon from '@mui/icons-material/Share';
-import {CardActions} from '@mui/material';
 import LongMenu from './longMenu';
+import PostComments from './PostComments';
+import {Box} from '@mui/material';
+import {Context} from '../../index';
 
 const Post = ({post}) => {
-    const {user, posts} = useContext(Context);
-    const [postLikes, setPostLikes] = useState(post.likes)
-    const [isLiked, setIsLiked] = useState(false)
+    const {comments} = useContext(Context);
+
 
     useEffect(()=>{
-        setIsLiked(post.likes.includes(user.user.id))
-    }, [user.user.id, post.likes])
+        comments.fetchPostsComments(post._id)
+    },[])
 
-    console.log(isLiked)
-    const handleLike= ()=>{
-        const formData = new FormData()
-        formData.append('postId', post._id)
-        formData.append('userId', user.user.id)
-        posts.likePost(formData)
-        if(!isLiked) {
-            setPostLikes (posts.postLikes + 1)
-            setIsLiked (true)
-        } else {
-            setPostLikes (posts.postLikes - 1)
-            setIsLiked (false)
-        }
-
-    }
+    console.log(post._id)
 
     return (
         <Card sx={{borderRadius: 2, mt: 2}}>
@@ -63,28 +45,13 @@ const Post = ({post}) => {
                 <></>
             }
 
-            <CardContent>
-                <Typography variant="body2" color="text.secondary">
+            <Box sx={{ml:3, mr:3, mt: 2}}>
+                <Typography variant="body2" color="text.secondary" >
                     {post.content}
                 </Typography>
+            </Box>
 
-            </CardContent>
-            <CardActions disableSpacing>
-
-            <IconButton aria-label="like"
-                        onClick={handleLike}
-            >
-                {postLikes.length > 0 ?
-                    <FavoriteIcon sx={{color: red[700]}}/>
-                    :
-                    <FavoriteIcon/>
-                }
-            </IconButton>
-            <Typography sx={{ml: 1}}>{postLikes.length}</Typography>
-            <IconButton aria-label="share">
-                <ShareIcon />
-            </IconButton>
-            </CardActions>
+            <PostComments post={post}/>
         </Card>
     );
 };

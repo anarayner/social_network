@@ -130,7 +130,6 @@ const UserInfo =observer (({userFollowers, userFollowing}) => {
             </Grid>
 
 
-
         </Box>
                 </div>
 
