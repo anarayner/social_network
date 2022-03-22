@@ -6,6 +6,7 @@ import {observer} from 'mobx-react';
 import {Divider, ListItem, ListItemAvatar, ListItemText, Paper} from '@mui/material';
 
 const Comment = ({comment}) => {
+    console.log(comment)
 
     return (
         <>

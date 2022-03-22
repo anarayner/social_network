@@ -31,7 +31,10 @@ class PostController{
     async fetchProfilePosts(req, res, next){
         try{
             const {id} = req.params
-            const posts = await Post.find({userId: id}).populate('userId')
+            const posts = await Post.find({userId: id})
+                .populate('userId')
+                .populate({path: 'comments',
+                    populate: {path: 'userId', select: "-password"}})
                 // .populate({path: 'userId'})
             return res.json (posts)
         }catch (e) {
@@ -40,7 +43,10 @@ class PostController{
     }
     async fetchPosts(req, res, next){
         try{
-            let posts = await Post.find({}).populate('userId')
+            let posts = await Post.find({})
+                .populate('userId')
+                .populate({path: 'comments',
+                    populate: {path: 'userId', select: "-password"}})
             return res.json (posts)
         }catch (e) {
             next(ApiError.BadRequest(e.message))

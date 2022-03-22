@@ -13,14 +13,15 @@ import {Box} from '@mui/material';
 import {Context} from '../../index';
 
 const Post = ({post}) => {
-    const {comments} = useContext(Context);
+    // const {comments} = useContext(Context);
+    //
+    //
+    // useEffect(()=>{
+    //     comments.fetchPostsComments(post._id)
+    // },[])
 
+    console.log(post)
 
-    useEffect(()=>{
-        comments.fetchPostsComments(post._id)
-    },[])
-
-    console.log(post._id)
 
     return (
         <Card sx={{borderRadius: 2, mt: 2}}>

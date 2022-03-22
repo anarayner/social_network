@@ -13,6 +13,10 @@ class CommentController{
         try{
             const {content, userId, postId} = req.body
             const comment = await Comment.create ({content, userId, postId})
+            await Post.findOneAndUpdate({_id: postId}, {
+                $push: {comments: comment._id}
+            }, {new: true})
+
             return res.json(comment)
         }catch (e) {
             next(ApiError.BadRequest(e.message))

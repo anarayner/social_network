@@ -4,6 +4,7 @@ import * as PostService from '../services/PostService';
 export default class postsStore{
     _posts = [];
     _postLikes = [];
+    _postComments = []
 
     constructor() {
         makeAutoObservable(this)

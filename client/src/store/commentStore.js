@@ -17,7 +17,7 @@ export default class commentStore{
     }
 
 
-    async uploadPost(comment){
+    async uploadComment(comment){
         try{
             const newComment = await CommentService.uploadComment(comment)
             console.log(newComment)
@@ -28,7 +28,7 @@ export default class commentStore{
             console.log(e)
         }
     }
-    async deletePost(id){
+    async deleteComment(id){
         try{
             await CommentService.deleteComment(id)
             console.log(this.comments)
@@ -44,7 +44,7 @@ export default class commentStore{
     async fetchPostsComments(id){
         try{
             const comments = await CommentService.fetchPostComments(id)
-            // console.log(posts)
+            // console.log(comments)
             this.setComments(comments)
         }catch (e) {
             console.log(e)

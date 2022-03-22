@@ -26,14 +26,11 @@ const ExpandMore = styled((props) => {
 
 
 const PostComments = ({post}) => {
-    const {comments} = useContext(Context);
-
-
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-
+console.log(post)
 
     return (
         <>
@@ -48,8 +45,7 @@ const PostComments = ({post}) => {
 
                 <ExpandMoreIcon />
             </ExpandMore>
-            <Typography sx={{pr:1, pl:1}}>{comments.comments.length} comments </Typography>
-
+            <Typography sx={{pr:1, pl:1}}>{post.comments.length} comments </Typography>
 
         </CardActions>
 
@@ -57,7 +53,7 @@ const PostComments = ({post}) => {
                   sx={{pb:2, pl:2, pr:2}}
                   timeout="auto" unmountOnExit>
                 <Divider sx={{mb:2}}/>
-                {comments.comments.map(comment =>
+                {post.comments.map(comment =>
                     <Comment key={comment._id} comment={comment} />
                 )}
 
