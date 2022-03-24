@@ -1,18 +1,17 @@
 import React, {useContext, useState} from 'react';
-import {alpha, Avatar, Badge, Box, Button, Divider, InputBase, List, Toolbar} from '@mui/material';
+import {alpha, Avatar, Badge, Box, Button, Divider, List, Toolbar} from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import {Search} from '@material-ui/icons';
 import theme from '../../theme';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import SidebarList from './listItems';
+import SidebarList from './SidebarList';
 import {styled} from '@mui/system';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiDrawer from '@mui/material/Drawer';
 import {Context} from '../../index';
-
+import Logo from '../../assets/images/icons/Logo.svg'
 
 const drawerWidth = 240
 
@@ -62,28 +61,6 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
 
 }))
 
-const SearchComponent = styled('div',{})({
-    display: 'flex',
-    textAlign: 'center',
-    color: 'white',
-    height: 40,
-    borderRadius: 10,
-    marginLeft: theme.spacing(3),
-    backgroundColor: alpha('#3e4457', 0.15),
-    '&:hover': {
-        backgroundColor: alpha('#3e4457', 0.25),
-    },
-
-});
-
-const SearchIconWrapper = styled('div', {})({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-});
 
 const ButtonIcon = styled(IconButton,{})({
     '&:hover': {
@@ -108,15 +85,7 @@ const SideBar = () => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <SearchComponent>
-                        <SearchIconWrapper>
-                            <Search sx={{color: '#2a2727'}}/>
-                        </SearchIconWrapper>
-                        <InputBase
-                            placeholder="Search…"
-                            sx={{color: '#2a2727'}}
-                        />
-                    </SearchComponent>
+
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <ButtonIcon
@@ -139,7 +108,9 @@ const SideBar = () => {
                                 <NotificationsIcon />
                             </Badge>
                         </ButtonIcon>
-                        <Avatar sx={{ backgroundColor: 'primary', ml: 2}}>N</Avatar>
+                        <Avatar sx={{ ml: 2}}
+                                src={'http://localhost:7000/' + user.user.profilePicture}
+                        />
                     </Box>
                 </Toolbar>
             </AppBar>
@@ -153,14 +124,12 @@ const SideBar = () => {
                         justifyContent: 'flex-end',
                         color: theme.palette.background.default,
                     }}>
+                    <img src={Logo} alt="logo" width={40} height={40}  />
+
                     <IconButton onClick={toggleDrawer}>
                         <ChevronLeftIcon sx={{color: theme.palette.background.default}}/>
                     </IconButton>
-                    <Button  variant='outlined' sx={{ my: 1, mx: 1.5 }}
-                             onClick={()=> user.logout()}
-                    >
-                        Log out
-                    </Button>
+
                 </Toolbar>
                 <Divider sx={{backgroundColor: theme.palette.background.default}}/>
 

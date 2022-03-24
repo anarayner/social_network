@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {observer} from 'mobx-react-lite';
 import {
     Box,
@@ -34,7 +34,7 @@ const UsersPage = observer(() => {
                       <Container  sx={{ mt: 10, mb: 4}}>
                           <Grid container spacing={3}>
                        {/* Posts */}
-                       <Grid item xs={12} md={10} lg={9} >
+                       <Grid item xs={12} md={12} lg={12} >
                            <Paper
                                sx={{
                                    p: 2,
@@ -47,9 +47,9 @@ const UsersPage = observer(() => {
 
                        </Grid>
                        {/* message */}
-                       <Grid item xs={12} md={2} lg={3}>
+                       {/*<Grid item xs={12} md={2} lg={3}>*/}
 
-                       </Grid>
+                       {/*</Grid>*/}
                        </Grid>
                </Container>
                 </Grid>

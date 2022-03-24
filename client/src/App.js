@@ -4,7 +4,7 @@ import theme from './theme/index'
 import {BrowserRouter} from 'react-router-dom';
 import AppRouter from './components/AppRoutes';
 import {observer} from 'mobx-react-lite';
-import AlertDialog from './components/AlertDialog';
+import AlertDialog from './components/login/AlertDialog';
 
 function App() {
 

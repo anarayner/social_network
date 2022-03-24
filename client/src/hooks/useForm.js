@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 
 const useForm = (callback, validate) => {
@@ -11,7 +10,7 @@ const useForm = (callback, validate) => {
         if (Object.keys(errors).length === 0 && isSubmitting) {
             callback();
         }
-    }, [errors]);
+    }, [errors, setIsSubmitting]);
 
     const handleSubmit = (event) => {
         if (event) event.preventDefault();

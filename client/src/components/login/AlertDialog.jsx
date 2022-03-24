@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Fade, Snackbar} from '@mui/material';
-import {Context} from '../index';
+import {Context} from '../../index';
 import {observer} from 'mobx-react-lite';
-import Spinner from '../components/UI/Spinner'
+import Spinner from '../UI/Spinner'
 
 
 function AlertDialog() {

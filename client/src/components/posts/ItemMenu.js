@@ -13,7 +13,7 @@ const options = [
 
 const ITEM_HEIGHT = 48;
 
-export default function LongMenu({post}) {
+export default function ItemMenu({props}) {
     const {posts} = useContext(Context);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -26,7 +26,7 @@ export default function LongMenu({post}) {
     };
 
     const handleDelete = () => {
-        posts.deletePost(post._id)
+        posts.deletePost(props._id)
     };
 
     return (

@@ -3,10 +3,10 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Moment from 'react-moment';
 import {observer} from 'mobx-react';
-import {Divider, ListItem, ListItemAvatar, ListItemText, Paper} from '@mui/material';
+import {Divider, ListItem, ListItemAvatar, ListItemText} from '@mui/material';
+import ItemMenuComment from './ItemMenuComment';
 
-const Comment = ({comment}) => {
-    console.log(comment)
+const Comment = ({comment, postComments}) => {
 
     return (
         <>
@@ -30,12 +30,10 @@ const Comment = ({comment}) => {
                     </React.Fragment>
                 }
             />
-
+            <ItemMenuComment comment={comment} postComments={postComments}/>
 
         </ListItem>
-
-
-    <Divider variant="inset"  sx={{mb:2}} />
+    <Divider variant="inset"  />
         </>
     );
 };

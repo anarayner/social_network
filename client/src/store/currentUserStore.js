@@ -104,7 +104,7 @@ export default class currentUserStore{
 
     async uploadProfilePicture(id, img){
         try{
-            const user = await UsersService.uploadProfilePicture(id,img)
+            await UsersService.uploadProfilePicture(id,img)
         }catch (e) {
             console.log(e)
         }

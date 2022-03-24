@@ -1,5 +1,6 @@
 import {makeAutoObservable, runInAction} from 'mobx';
 import * as PostService from '../services/PostService';
+import * as CommentService from '../services/CommentService';
 
 export default class postsStore{
     _posts = [];
@@ -13,14 +14,16 @@ export default class postsStore{
     setPosts(posts){
         this._posts = posts
     }
-    setPostLikes(postLikes){
-        this._postLikes = postLikes
-    }
+
     get posts(){
         return this._posts
     }
     get postLikes(){
         return this._postLikes
+    }
+
+    get postComments(){
+        return this._postComments
     }
 
     async uploadPost(post){
@@ -76,14 +79,31 @@ export default class postsStore{
         }
     }
 
-    // async fetchPostLikes(post){
-    //     try{
-    //         const likes = await PostService.fetchPostLikes(post)
-    //         console.log(likes)
-    //         this.setPostLikes(likes)
-    //         // this.postLikes(likes)
-    //     }catch (e) {
-    //         console.log(e)
-    //     }
-    // }
+    async uploadComment(data){
+        try{
+            const comment = await CommentService.uploadComment(data)
+            // console.log(comment)
+            return comment
+            // runInAction(()=> {
+            //     this.posts.comments.push(comment)
+            // })
+        }catch (e) {
+            console.log(e)
+        }
+    }
+
+    async deleteComment(id){
+        try{
+            const comment = await CommentService.deleteComment(id)
+            // console.log(this.comments)
+            // runInAction(()=> {
+            //     const filteredCommentPosts = this.posts.comments.filter(comment => comment._id !== id)
+            //     this._posts = filteredCommentPosts
+            // })
+            return comment
+        }catch (e) {
+            console.log(e)
+        }
+    }
+
 }

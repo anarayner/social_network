@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Avatar, Box, Button, Grid, Paper} from '@mui/material';
+import {Avatar, Box, Button, CircularProgress, Grid, Paper} from '@mui/material';
 import {Typography} from '@material-ui/core';
 import Divider from '@mui/material/Divider';
 import {useParams} from 'react-router-dom';
@@ -40,10 +40,15 @@ const UserInfo =observer (({userFollowers, userFollowing}) => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                        <Avatar
-                            src={'http://localhost:7000/' + currentUser.currentUser.profilePicture}
-                            sx={{height: 135, width: 135}}
-                        />
+                        {!currentUser.currentUser.profilePicture?
+                            <CircularProgress />
+                            :
+                            <Avatar
+                                src={'http://localhost:7000/' + currentUser.currentUser.profilePicture}
+                                sx={{height: 135, width: 135}}
+                            />
+                        }
+
                     </Box>
                     <ImgUploadModal/>
 

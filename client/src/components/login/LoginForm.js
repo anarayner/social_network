@@ -9,7 +9,7 @@ import {useContext} from 'react';
 import {Context} from '../../index';
 import useForm from '../../hooks/useForm';
 import validate from '../../hooks/loginValidator';
-import {FEED_ROUTE, REGISTRATION_ROUTE, USER_ROUTE} from '../../util/consts';
+import {FEED_ROUTE, REGISTRATION_ROUTE} from '../../util/consts';
 import {NavLink, useNavigate} from 'react-router-dom';
 
 export default function LoginForm(){

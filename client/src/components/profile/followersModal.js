@@ -2,8 +2,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import {useContext, useState} from 'react';
-import IconButton from '@mui/material/IconButton';
-import {PhotoCamera} from '@material-ui/icons';
 import {Typography} from '@material-ui/core';
 import {Button} from '@mui/material';
 import {Context} from '../../index';

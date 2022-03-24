@@ -3,10 +3,8 @@ const uuid = require('uuid');
 const path = require('path')
 const ApiError = require('../errors/apiError')
 const Post = require('../models/Post')
-const User = require('../models/User')
 
 class PostController{
-
     async create(req, res, next){
         try{
             const {content, userId} = req.body
@@ -35,7 +33,6 @@ class PostController{
                 .populate('userId')
                 .populate({path: 'comments',
                     populate: {path: 'userId', select: "-password"}})
-                // .populate({path: 'userId'})
             return res.json (posts)
         }catch (e) {
             next(ApiError.BadRequest(e.message))

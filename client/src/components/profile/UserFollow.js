@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import {observer} from 'mobx-react';
 import {USER_ROUTE} from '../../util/consts';
 import {useNavigate} from 'react-router-dom';
+import {Avatar} from '@mui/material';
 
 const UserFollow = observer(({props, setOpen})=> {
     const navigate = useNavigate()
@@ -27,10 +28,10 @@ const UserFollow = observer(({props, setOpen})=> {
                     >
                         <ListItemButton>
                             <ListItemAvatar>
-                                {/*<Avatar*/}
-                                {/*    alt={`Avatar`}*/}
-                                {/*    src={'http://localhost:7000/' + user.profilePicture}*/}
-                                {/*/>*/}
+                                <Avatar
+                                    alt={`Avatar`}
+                                    src={'http://localhost:7000/' + user.profilePicture}
+                                />
                             </ListItemAvatar>
                             <Typography variant="body2" color="text.secondary">
                                 {user.username}

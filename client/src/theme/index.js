@@ -12,18 +12,7 @@ const theme = createTheme({
             default: '#F0EFF5'
         }
     },
-    typography: {
-        fontFamily: 'Poppins',
-        fontWeightRegular: 400,
-        fontWeightMedium: 500,
-        fontWeightBold: 700,
-        h3: {
-            fontFamily: 'Montserrat',
-            fontWeightRegular: 400,
-            fontWeightMedium: 500,
-            fontWeightBold: 700,
-        }
-    }
+
 })
 
 export default theme;

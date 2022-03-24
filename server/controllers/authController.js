@@ -1,4 +1,3 @@
-const User = require ('../models/User');
 const authService = require('../service/authService')
 require('dotenv').config()
 const {validationResult} = require('express-validator')

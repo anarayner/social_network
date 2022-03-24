@@ -36,7 +36,6 @@ export default function EditProfileButton() {
         e.preventDefault()
         const formData = new FormData()
         formData.append('username', name)
-
         formData.append('city', city)
         formData.append('work', work)
         formData.append('description', description)
