@@ -8,11 +8,16 @@ const errorMiddleware = require('./middleware/errorMiddleware')
 const corsMiddleware = require('./middleware/corsMiddlewares')
 const path = require ('path');
 const fileUpload = require('express-fileupload')
-
-
+const {Server}= require('socket.io')
+const http = require('http')
 
 const PORT = process.env.PORT || 9000
 const app = express()
+const server = http.createServer(app)
+const io = new Server(server)
+
+io.on('connection', (socket) => {console.log('a user connected')})
+io.on('disconnect', (socket) => {console.log('user disconnected')})
 
 app.use(corsMiddleware)
 app.use(express.json())
@@ -33,7 +38,8 @@ const start = async () =>{
             useNewUrlParser: true,
             useUnifiedTopology: true
         })
-        await app.listen(PORT, ()=> console.log(`Server started on ${PORT}`))
+
+        await server.listen(PORT, ()=> console.log(`Server started on ${PORT}`))
 
     }catch(e){
         console.log(e.message)

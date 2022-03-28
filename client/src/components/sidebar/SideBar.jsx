@@ -108,9 +108,9 @@ const SideBar = () => {
                                 <NotificationsIcon />
                             </Badge>
                         </ButtonIcon>
-                        <Avatar sx={{ ml: 2}}
-                                src={'http://localhost:7000/' + user.user.profilePicture}
-                        />
+                        {/*<Avatar sx={{ ml: 2}}*/}
+                        {/*        src={'http://localhost:7000/' + user.user.profilePicture}*/}
+                        {/*/>*/}
                     </Box>
                 </Toolbar>
             </AppBar>
