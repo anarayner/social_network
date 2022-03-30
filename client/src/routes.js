@@ -4,7 +4,6 @@ import {
     REGISTRATION_ROUTE,
     FEED_ROUTE,
     USERS_ROUTE,
-    TEST_ROUTE,
     CHAT_ROUTE
 } from './util/consts';
 import UserPage from './pages/UserPage';
@@ -19,7 +18,8 @@ export const authRoutes =[
     {path: FEED_ROUTE, element: <FeedPage/>},
     {path: USER_ROUTE +'/:id', element: <UserPage/>},
     {path: CHAT_ROUTE , element: <ChatPage/>},
-    // {path: "*", element: <UserPage/>}
+    {path: REGISTRATION_ROUTE, element: <RegistrationPage/>},
+    {path: "*", element: <FeedPage/>}
 ]
 
 export const publicRoutes =[

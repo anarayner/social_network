@@ -16,18 +16,59 @@ import FriendMessage from '../components/chat/FriendMessage';
 import {fetchConversavions, fetchMessages, sendMessage} from '../services/ChatService';
 import Conversation from '../components/chat/Conversation';
 import ListItemButton from '@mui/material/ListItemButton';
+import {io} from 'socket.io-client'
 
 
-const text = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
-// ref={scrollToMessage}
 
 const ChatPage = observer(() => {
     const {user} = useContext(Context);
     const [conversations, setConversations] = useState([])
     const [currentConversation, setCurrentConversation] = useState(null)
     const [messages, setMessages] = useState(null)
+    const [arrivalMessages, setArrivalMessages] = useState(null)
     const [newMessage, setNewMessages] = useState('')
     const scrollToMessage = useRef(null)
+    const socket = useRef(null)
+
+    console.log(socket)
+
+
+    useEffect(()=>{
+        socket.current = io('ws://localhost:7000')
+        // socket.current.on('getMessages', data =>{
+        //     console.log(data)
+        //     setArrivalMessages({
+        //         sender: data.senderId,
+        //         content: data.content,
+        //         createdAt: Date.now()
+        //     })
+        // })
+    },[])
+
+
+    // useEffect(()=>{
+    //   arrivalMessages && currentConversation?.members.includes(arrivalMessages.sender) &&
+    //       messages.push(arrivalMessages)
+    // },[ arrivalMessages, currentConversation])
+
+
+
+
+    useEffect(()=>{
+        fetchConversavions(user.user.id).then(data => setConversations(data))
+    },[ user])
+    useEffect(()=>{
+        scrollToMessage?.current?.scrollIntoView({behavior: 'smooth'})
+    },[messages])
+
+    useEffect(()=>{
+            socket.current.emit('addUser', user.user.id)
+
+    },[])
+
+    const handleClick = (id) => {
+        fetchMessages(id).then(data => setMessages(data))
+    }
 
     const handleSendMessage = (e)=>{
         e.preventDefault()
@@ -35,24 +76,17 @@ const ChatPage = observer(() => {
         formData.append('conversationId', currentConversation._id)
         formData.append('sender', user.user.id)
         formData.append('content', newMessage)
-        console.log(currentConversation)
 
         sendMessage(formData).then(data => setMessages(data))
         setNewMessages('')
+        // const member = currentConversation?.members.filter(m => m._id !== user.user.id)
+        // socket.current.emit('sendMessage', {
+        //     senderId: user.user.id,
+        //     receiverId: member[0]._id,
+        //     content: newMessage
+        // })
     }
 
-    useEffect(()=>{
-        fetchConversavions(user.user.id).then(data => setConversations(data))
-    },[ user])
-    useEffect(()=>{
-        scrollToMessage?.current?.scrollIntoView({behavior: 'smooth'})
-
-    },[messages])
-
-    const handleClick = (id) => {
-        fetchMessages(id).then(data => setMessages(data))
-        // executeScroll()
-    }
 
     const executeScroll = () =>{
         scrollToMessage.current.scrollIntoView({behavior: 'smooth'})

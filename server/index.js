@@ -8,16 +8,17 @@ const errorMiddleware = require('./middleware/errorMiddleware')
 const corsMiddleware = require('./middleware/corsMiddlewares')
 const path = require ('path');
 const fileUpload = require('express-fileupload')
-const {Server}= require('socket.io')
-const http = require('http')
+const SocketServer = require('./socketServer')
+
 
 const PORT = process.env.PORT || 9000
-const app = express()
-const server = http.createServer(app)
-const io = new Server(server)
 
-io.on('connection', (socket) => {console.log('a user connected')})
-io.on('disconnect', (socket) => {console.log('user disconnected')})
+const app = express()
+
+// Socket
+const http = require('http').createServer(app)
+const io = require('socket.io')(http)
+
 
 app.use(corsMiddleware)
 app.use(express.json())
@@ -25,12 +26,17 @@ app.use(cookieParser())
 app.use(cors({
     credential: true,
     origin: process.env.CLIENT_URL
-    }
-))
+    }))
 app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(fileUpload({}))
 app.use('/api', router)
 app.use(errorMiddleware)
+
+
+io.on('connection', socket => {
+    console.log(`User connected ${socket.id}.`)
+    SocketServer(socket)
+})
 
 const start = async () =>{
     try{
@@ -39,7 +45,7 @@ const start = async () =>{
             useUnifiedTopology: true
         })
 
-        await server.listen(PORT, ()=> console.log(`Server started on ${PORT}`))
+        await http.listen(PORT, ()=> console.log(`Server started on ${PORT}`))
 
     }catch(e){
         console.log(e.message)
