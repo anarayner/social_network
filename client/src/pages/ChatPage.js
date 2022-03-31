@@ -17,6 +17,7 @@ import {fetchConversavions, fetchMessages, sendMessage} from '../services/ChatSe
 import Conversation from '../components/chat/Conversation';
 import ListItemButton from '@mui/material/ListItemButton';
 import {io} from 'socket.io-client'
+const socket = io.connect('http://localhost:7000')
 
 
 
@@ -25,46 +26,29 @@ const ChatPage = observer(() => {
     const [conversations, setConversations] = useState([])
     const [currentConversation, setCurrentConversation] = useState(null)
     const [messages, setMessages] = useState(null)
-    const [arrivalMessages, setArrivalMessages] = useState(null)
     const [newMessage, setNewMessages] = useState('')
     const scrollToMessage = useRef(null)
-    const socket = useRef(null)
 
-    console.log(socket)
-
-
-    useEffect(()=>{
-        socket.current = io('ws://localhost:7000')
-        // socket.current.on('getMessages', data =>{
-        //     console.log(data)
-        //     setArrivalMessages({
-        //         sender: data.senderId,
-        //         content: data.content,
-        //         createdAt: Date.now()
-        //     })
-        // })
-    },[])
-
-
-    // useEffect(()=>{
-    //   arrivalMessages && currentConversation?.members.includes(arrivalMessages.sender) &&
-    //       messages.push(arrivalMessages)
-    // },[ arrivalMessages, currentConversation])
-
-
-
+    console.log(currentConversation)
 
     useEffect(()=>{
         fetchConversavions(user.user.id).then(data => setConversations(data))
     },[ user])
-    useEffect(()=>{
-        scrollToMessage?.current?.scrollIntoView({behavior: 'smooth'})
-    },[messages])
+
 
     useEffect(()=>{
-            socket.current.emit('addUser', user.user.id)
-
+        socket.emit('addUser', user.user.id)
+        socket.on('getUsers', data=>{
+            // console.log(data)
+        })
     },[])
+    useEffect(()=>{
+        socket.on('message', data=>{
+            console.log(data)
+            // setMessages((messages) => [...messages, data]);
+
+        })
+       },[socket])
 
     const handleClick = (id) => {
         fetchMessages(id).then(data => setMessages(data))
@@ -79,19 +63,18 @@ const ChatPage = observer(() => {
 
         sendMessage(formData).then(data => setMessages(data))
         setNewMessages('')
-        // const member = currentConversation?.members.filter(m => m._id !== user.user.id)
-        // socket.current.emit('sendMessage', {
-        //     senderId: user.user.id,
-        //     receiverId: member[0]._id,
-        //     content: newMessage
-        // })
+        socket.emit('sendMessage', ({
+            sender: user.user.id,
+            content: newMessage,
+            conversation: currentConversation._id,
+            createdAt: Date.now()
+        }))
     }
 
+    useEffect(()=>{
+        scrollToMessage?.current?.scrollIntoView({behavior: 'smooth'})
+    },[messages])
 
-    const executeScroll = () =>{
-        scrollToMessage.current.scrollIntoView({behavior: 'smooth'})
-
-    }
 
     return (
         <div>
@@ -115,6 +98,7 @@ const ChatPage = observer(() => {
                                                         onClick={()=> {
                                                             setCurrentConversation (conversation);
                                                             handleClick(conversation._id)
+                                                            socket.emit('joinConversation', conversation._id)
                                                         }}
                                         >
                                         <Conversation conversation={conversation}

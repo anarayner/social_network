@@ -19,6 +19,7 @@ export const authRoutes =[
     {path: USER_ROUTE +'/:id', element: <UserPage/>},
     {path: CHAT_ROUTE , element: <ChatPage/>},
     {path: REGISTRATION_ROUTE, element: <RegistrationPage/>},
+    {path: LOGIN_ROUTE, element: <LoginPage/>},
     {path: "*", element: <FeedPage/>}
 ]
 

@@ -1,14 +1,16 @@
 let users = []
 
-
 const SocketServer = (socket) => {
-    // Connect - Disconnect
-    socket.on('addUser', user => {
-        users.push({id: user._id, socketId: socket.id, followers: user.followers})
-    })
-    socket.on('disconnect', () => {
+    if(!users.includes(socket)){
+        users.push(socket)
+    }
 
+    socket.on('disconnection', socket =>{
+        users.splice(users.indexOf(socket), -1)
+        console.log('user disconnected')
     })
+    console.log(users.length)
+
 }
 
 module.exports = SocketServer
