@@ -18,9 +18,6 @@ import Conversation from '../components/chat/Conversation';
 import ListItemButton from '@mui/material/ListItemButton';
 import socket from '../socket';
 
-
-
-
 const ChatPage = observer(() => {
     const {user} = useContext(Context);
     const [conversations, setConversations] = useState([])
@@ -54,13 +51,13 @@ const ChatPage = observer(() => {
     useEffect(()=>{
     socket.on('receive_message', data => {
         console.log('data')
-        // console.log(data)
+        console.log(data)
         setReceivedMessages({
             sender: data.senderId,
             content: data.content,
         })
     })
-    },[])
+    },[socket])
 
 
     const handleClick = (id) => {
