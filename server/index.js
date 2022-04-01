@@ -63,7 +63,6 @@ io.on('connection', (socket) =>{
         console.log(users)
         const user = getUser(receiverId)
         console.log(user)
-
         io.to(user.socketId).emit('receive_message', {
             senderId,
             receiverId,

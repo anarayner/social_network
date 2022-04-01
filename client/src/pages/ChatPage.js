@@ -53,10 +53,8 @@ const ChatPage = observer(() => {
 
     useEffect(()=>{
     socket.on('receive_message', data => {
-        if(data.receiverId === user.user.id){
-            console.log(data)
-
-        }
+        console.log('data')
+        // console.log(data)
         setReceivedMessages({
             sender: data.senderId,
             content: data.content,
