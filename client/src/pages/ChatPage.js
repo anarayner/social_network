@@ -30,10 +30,14 @@ const ChatPage = observer(() => {
     const [receivedMessage, setReceivedMessages] = useState('')
     const scrollToMessage = useRef(null)
 
-    console.log(receivedMessage)
+    // console.log(receivedMessage)
     useEffect(()=>{
         fetchConversavions(user.user.id).then(data => setConversations(data))
     },[user])
+
+    // useEffect(()=>{
+    //     socket.emit('connectUser', user.user.id)
+    // },[user, currentConversation])
 
     useEffect(()=>{
         console.log(receivedMessage)
@@ -44,16 +48,18 @@ const ChatPage = observer(() => {
     useEffect(()=>{
         socket.emit('connectUser', user.user.id)
         console.log(socket)
-     socket.connect()
-    },[ socket])
+     // socket.connect()
+    },[socket])
 
     useEffect(()=>{
     socket.on('receive_message', data => {
-        console.log(data)
+        if(data.receiverId === user.user.id){
+            console.log(data)
+
+        }
         setReceivedMessages({
             sender: data.senderId,
             content: data.content,
-            createdAt: Date.now()
         })
     })
     },[])
@@ -110,7 +116,7 @@ const ChatPage = observer(() => {
                                                         onClick={()=> {
                                                             setCurrentConversation (conversation);
                                                             handleClick(conversation._id)
-                                                            // socket.emit('joinConversation', conversation._id)
+                                                                socket.emit('connectUser', user.user.id)
                                                         }}
                                         >
                                         <Conversation conversation={conversation}
