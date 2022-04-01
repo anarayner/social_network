@@ -1,12 +1,20 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { Route, Routes} from 'react-router-dom';
 import {authRoutes, publicRoutes} from '../routes';
 import {Context} from '../index';
 import {observer} from 'mobx-react-lite';
+import socket from '../socket';
 
 
 const AppRouter = () => {
     const {user} = useContext(Context)
+    console.log(user)
+    // useEffect (() => {
+    //     socket.auth = {user}
+    //     socket.connect()
+    //     // console.log(socket)
+    // }, [user]);
+
 
     return (
             <Routes>

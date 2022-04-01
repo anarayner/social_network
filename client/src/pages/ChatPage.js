@@ -16,8 +16,8 @@ import FriendMessage from '../components/chat/FriendMessage';
 import {fetchConversavions, fetchMessages, sendMessage} from '../services/ChatService';
 import Conversation from '../components/chat/Conversation';
 import ListItemButton from '@mui/material/ListItemButton';
-import {io} from 'socket.io-client'
-const socket = io.connect('http://localhost:7000')
+import socket from '../socket';
+
 
 
 
@@ -27,28 +27,37 @@ const ChatPage = observer(() => {
     const [currentConversation, setCurrentConversation] = useState(null)
     const [messages, setMessages] = useState(null)
     const [newMessage, setNewMessages] = useState('')
+    const [receivedMessage, setReceivedMessages] = useState('')
     const scrollToMessage = useRef(null)
 
-    console.log(currentConversation)
-
+    console.log(receivedMessage)
     useEffect(()=>{
         fetchConversavions(user.user.id).then(data => setConversations(data))
-    },[ user])
-
+    },[user])
 
     useEffect(()=>{
-        socket.emit('addUser', user.user.id)
-        socket.on('getUsers', data=>{
-            // console.log(data)
+        console.log(receivedMessage)
+       receivedMessage && currentConversation?.members.includes(receivedMessage.sender)&&
+           setMessages(prev => [...prev, receivedMessage])
+    }, [receivedMessage, currentConversation])
+
+    useEffect(()=>{
+        socket.emit('connectUser', user.user.id)
+        console.log(socket)
+     socket.connect()
+    },[ socket])
+
+    useEffect(()=>{
+    socket.on('receive_message', data => {
+        console.log(data)
+        setReceivedMessages({
+            sender: data.senderId,
+            content: data.content,
+            createdAt: Date.now()
         })
+    })
     },[])
-    useEffect(()=>{
-        socket.on('message', data=>{
-            console.log(data)
-            // setMessages((messages) => [...messages, data]);
 
-        })
-       },[socket])
 
     const handleClick = (id) => {
         fetchMessages(id).then(data => setMessages(data))
@@ -63,12 +72,15 @@ const ChatPage = observer(() => {
 
         sendMessage(formData).then(data => setMessages(data))
         setNewMessages('')
-        socket.emit('sendMessage', ({
-            sender: user.user.id,
+        const senderId = currentConversation.members.filter(member => member._id !== user.user.id)
+        const receiverId = currentConversation.members.filter(member => member._id !== user.user.id)
+          console.log(receiverId[0]._id)
+        socket.emit('send_message', {
+            senderId: user.user.id,
+            receiverId: receiverId[0]._id,
+            profilePicture: senderId[0].profilePicture,
             content: newMessage,
-            conversation: currentConversation._id,
-            createdAt: Date.now()
-        }))
+        })
     }
 
     useEffect(()=>{
@@ -98,7 +110,7 @@ const ChatPage = observer(() => {
                                                         onClick={()=> {
                                                             setCurrentConversation (conversation);
                                                             handleClick(conversation._id)
-                                                            socket.emit('joinConversation', conversation._id)
+                                                            // socket.emit('joinConversation', conversation._id)
                                                         }}
                                         >
                                         <Conversation conversation={conversation}

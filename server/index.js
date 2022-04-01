@@ -38,47 +38,43 @@ app.use(fileUpload({}))
 app.use('/api', router)
 app.use(errorMiddleware)
 
-const NEW_CHAT_MESSAGE_EVENT = 'NEW_CHAT_MESSAGE_EVENT';
-
-
-let users = []
-let conversation = []
+const users = [];
 
 const addUser = (id, socketId) =>{
     !users.some(user => user.id === id) &&
     users.push({id, socketId})
 }
 
-io.on('connection', socket => {
-    console.log(`User connected`, socket.id)
+const getUser = (id) =>{
+    return users.find(user => user.id === id)
+}
 
-    // listen fot new messages
-    io.on(NEW_CHAT_MESSAGE_EVENT, data =>{
-        io.emit(NEW_CHAT_MESSAGE_EVENT, data)
-    })
+io.on('connection', (socket) =>{
+    console.log('connected')
 
-    socket.on('addUser', userId =>{
+    //all connected users
+    socket.on('connectUser', userId =>{
         addUser(userId, socket.id)
-        io.emit('getUsers', users)
     })
-    socket.on('joinConversation', (id) =>{
-        conversation.join(id)
-        console.log(`User with ID: ${socket.id} joined the conv ${id}`)
-    })
-    // welcome current user
-    socket.emit('message', 'welcome here')
+    console.log(users)
 
-    // listen for messages
-    socket.on('sendMessage', data =>{
-        console.log(data)
-        io.emit('message', data)
-        // io.to(data.conversation).emit('r_Message', data)
+    //send message
+    socket.on('send_message', ({senderId, receiverId, content})=>{
+        const user = getUser(receiverId)
+        console.log(user)
+        io.emit('receive_message', {
+            senderId,
+            content,
+        })
     })
-    // disconnect user
+
+
+    // all users events
+    socket.emit("users", users);
+
     socket.on('disconnect', () => {
-        io.emit('message', 'a user has left the chat')
+        console.log( 'a user has left the chat')
     });
-
 })
 
 const start = async () =>{
