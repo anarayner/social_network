@@ -9,7 +9,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 const TopBar = () => {
     const navigate = useNavigate()
     const location = useLocation()
-    const isLogin = location.pathname ===LOGIN_ROUTE
+    const isLogin = location.pathname ===REGISTRATION_ROUTE
 
 
     return (
