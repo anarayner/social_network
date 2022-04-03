@@ -32,9 +32,9 @@ const ChatPage = observer(() => {
         fetchConversavions(user.user.id).then(data => setConversations(data))
     },[user])
 
-    // useEffect(()=>{
-    //     socket.emit('connectUser', user.user.id)
-    // },[user, currentConversation])
+    useEffect(()=>{
+        socket.emit('connectUser', user.user.id)
+    },[user, currentConversation])
 
     useEffect(()=>{
         console.log(receivedMessage)
@@ -45,7 +45,6 @@ const ChatPage = observer(() => {
     useEffect(()=>{
         socket.emit('connectUser', user.user.id)
         console.log(socket)
-     // socket.connect()
     },[socket])
 
     useEffect(()=>{
@@ -73,13 +72,14 @@ const ChatPage = observer(() => {
 
         sendMessage(formData).then(data => setMessages(data))
         setNewMessages('')
-        const senderId = currentConversation.members.filter(member => member._id !== user.user.id)
+        const sender = currentConversation.members.filter(member => member._id !== user.user.id)
         const receiverId = currentConversation.members.filter(member => member._id !== user.user.id)
           console.log(receiverId[0]._id)
         socket.emit('send_message', {
             senderId: user.user.id,
             receiverId: receiverId[0]._id,
-            profilePicture: senderId[0].profilePicture,
+            conversationsId: currentConversation._id,
+            sender: sender[0],
             content: newMessage,
         })
     }
@@ -111,7 +111,6 @@ const ChatPage = observer(() => {
                                                         onClick={()=> {
                                                             setCurrentConversation (conversation);
                                                             handleClick(conversation._id)
-                                                                socket.emit('connectUser', user.user.id)
                                                         }}
                                         >
                                         <Conversation conversation={conversation}
