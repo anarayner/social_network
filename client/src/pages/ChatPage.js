@@ -17,6 +17,7 @@ import {fetchConversavions, fetchMessages, sendMessage} from '../services/ChatSe
 import Conversation from '../components/chat/Conversation';
 import ListItemButton from '@mui/material/ListItemButton';
 import socket from '../socket';
+import MessagesList from '../components/chat/MessagesList';
 
 const ChatPage = observer(() => {
     const {user} = useContext(Context);
@@ -25,7 +26,6 @@ const ChatPage = observer(() => {
     const [messages, setMessages] = useState(null)
     const [newMessage, setNewMessages] = useState('')
     const [receivedMessage, setReceivedMessages] = useState('')
-    const scrollToMessage = useRef(null)
 
     // console.log(receivedMessage)
     useEffect(()=>{
@@ -34,7 +34,7 @@ const ChatPage = observer(() => {
 
     useEffect(()=>{
         socket.emit('connectUser', user.user.id)
-    },[user, currentConversation])
+    },[user])
 
     useEffect(()=>{
         console.log(receivedMessage)
@@ -84,11 +84,6 @@ const ChatPage = observer(() => {
         })
     }
 
-    useEffect(()=>{
-        scrollToMessage?.current?.scrollIntoView({behavior: 'smooth'})
-    },[messages])
-
-
     return (
         <div>
         <ChatAppBar/>
@@ -127,20 +122,7 @@ const ChatPage = observer(() => {
                     <Grid item xs={12} sm={12} md={8} lg={9.5}
                           sx={{backgroundColor: theme.palette.background.default, minHeight: '80vh' }}
                     >
-                                <Box sx={{pr:5, pl:5, mb:12}}>
-                                    {!messages?
-                                        <Typography variant={'h1'} color="text.secondary">No conversation opened</Typography>
-                                        :
-                                        messages.map(message => {
-                                            if(message.sender._id == user.user.id){
-                                                return <div ref={scrollToMessage} key={message._id}>
-                                                       <UserMessage message={message} />
-                                                        </div>
-                                            } else return  <div ref={scrollToMessage} key={message._id}>
-                                                           <FriendMessage message={message} />
-                                                           </div>
-                                        })}
-                                </Box>
+                                <MessagesList messages={messages}/>
                     </Grid>
                     <Box position={'fixed'}
                          bottom={'0'}
