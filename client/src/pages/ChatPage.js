@@ -32,9 +32,9 @@ const ChatPage = observer(() => {
         fetchConversavions(user.user.id).then(data => setConversations(data))
     },[user])
 
-    useEffect(()=>{
-        socket.emit('connectUser', user.user.id)
-    },[user])
+    // useEffect(()=>{
+    //     socket.emit('connectUser', user.user.id)
+    // },[user])
 
     useEffect(()=>{
         console.log(receivedMessage)
@@ -45,15 +45,18 @@ const ChatPage = observer(() => {
     useEffect(()=>{
         socket.emit('connectUser', user.user.id)
         console.log(socket)
-    },[socket])
+    },[socket, user])
 
     useEffect(()=>{
     socket.on('receive_message', data => {
-        console.log('data')
-        console.log(data)
+        console.log('data: ', data)
         setReceivedMessages({
-            sender: data.senderId,
+            sender: data.sender,
             content: data.content,
+            conversationsId: data.conversationsId,
+            profilePicture: data.sender.profilePicture,
+            createdAt: Date.now(),
+            _id: Date.now(),
         })
     })
     },[socket])

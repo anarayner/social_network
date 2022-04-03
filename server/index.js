@@ -59,15 +59,18 @@ io.on('connection', (socket) =>{
     console.log(users)
 
     //send message
-    socket.on('send_message', ({senderId, receiverId, content, createdAt})=>{
+    socket.on('send_message', ({senderId, receiverId, content, conversationsId, sender})=>{
         console.log(users)
         const user = getUser(receiverId)
         console.log(user)
+        console.log({senderId, receiverId, content, conversationsId, sender})
 
-        io.emit('receive_message', {
+        io.to(user.socketId).emit('receive_message', {
             senderId,
-            receiverId,
+            // receiverId,
             content,
+            conversationsId,
+            sender
         })
     })
 
