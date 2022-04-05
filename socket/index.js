@@ -51,8 +51,6 @@ io.on('connection', (socket) =>{
                     sender
                 })}
         })
-
-
     })
     console.log(users)
 

@@ -4,8 +4,7 @@ import ChatAppBar from '../components/sidebar/ChatAppBar';
 import {
     Box,
     Grid,
-    List, OutlinedInput, Typography,
-} from '@mui/material';
+    List, OutlinedInput} from '@mui/material';
 import theme from '../theme';
 import {Context} from '../index';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -27,17 +26,9 @@ const ChatPage = observer(() => {
     const socket = useRef(io('ws://localhost:5090'))
 
 
-
-    // useEffect(()=>{
-    //     socket.current.on('welcome', m=>{
-    //         console.log(m)
-    //     })
-    // },[socket])
-
     useEffect(()=>{
         socket.current.emit('connectUser', user.user.id)
         socket.current.on('users',u=>{
-            // console.log(u)
         })
     },[user, socket])
 
@@ -55,8 +46,6 @@ const ChatPage = observer(() => {
         })
     },[])
 
-
-
     useEffect(()=>{
         fetchConversavions(user.user.id).then(data => setConversations(data))
     },[user])
@@ -68,8 +57,6 @@ const ChatPage = observer(() => {
        receivedMessage &&
            setMessages(prev => [...prev, receivedMessage])
     }, [receivedMessage])
-
-
 
     const handleClick = (id) => {
         fetchMessages(id).then(data => setMessages(data))
@@ -117,14 +104,10 @@ const ChatPage = observer(() => {
                                         <ListItemButton key={conversation._id}
                                                         onClick={()=> {
                                                             setCurrentConversation (conversation);
-                                                            handleClick(conversation._id)
-                                                        }}
-                                        >
+                                                            handleClick(conversation._id)}}>
                                         <Conversation conversation={conversation}
                                                       setMessages={setMessages}
-                                                      currentConversation={currentConversation}
-
-                                        />
+                                                      currentConversation={currentConversation}/>
                                         </ListItemButton>
                                     )}
                                 </List>
@@ -132,7 +115,7 @@ const ChatPage = observer(() => {
                     </Grid>
 
                     <Grid item xs={12} sm={12} md={8} lg={9.5}
-                          sx={{backgroundColor: theme.palette.background.default, minHeight: '80vh' }}
+                          sx={{backgroundColor: theme.palette.background.default, minHeight: '81.6vh' }}
                     >
                                 <MessagesList messages={messages}/>
                     </Grid>
@@ -142,7 +125,6 @@ const ChatPage = observer(() => {
                          sx={{backgroundColor: theme.palette.background.default,
                              p:3, pb:3, width: '100%'
                          }} >
-                        {/*<Divider sx={{mb:2}}/>*/}
                         <OutlinedInput
                             sx={{backgroundColor: theme.palette.common.white,}}
                             fullWidth

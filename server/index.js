@@ -9,9 +9,7 @@ const corsMiddleware = require('./middleware/corsMiddlewares')
 const path = require ('path');
 const fileUpload = require('express-fileupload')
 
-
 const PORT = process.env.PORT || 9000
-
 const app = express()
 
 
