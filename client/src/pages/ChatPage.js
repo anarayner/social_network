@@ -11,12 +11,10 @@ import {Context} from '../index';
 import InputAdornment from '@mui/material/InputAdornment';
 import SendIcon from '@mui/icons-material/Send';
 import IconButton from '@mui/material/IconButton';
-import UserMessage from '../components/chat/UserMessage';
-import FriendMessage from '../components/chat/FriendMessage';
 import {fetchConversavions, fetchMessages, sendMessage} from '../services/ChatService';
 import Conversation from '../components/chat/Conversation';
 import ListItemButton from '@mui/material/ListItemButton';
-import socket from '../socket';
+import {io} from 'socket.io-client'
 import MessagesList from '../components/chat/MessagesList';
 
 const ChatPage = observer(() => {
@@ -26,40 +24,51 @@ const ChatPage = observer(() => {
     const [messages, setMessages] = useState(null)
     const [newMessage, setNewMessages] = useState('')
     const [receivedMessage, setReceivedMessages] = useState('')
+    const socket = useRef(io('ws://localhost:5090'))
 
-    // console.log(receivedMessage)
+
+
+    // useEffect(()=>{
+    //     socket.current.on('welcome', m=>{
+    //         console.log(m)
+    //     })
+    // },[socket])
+
+    useEffect(()=>{
+        socket.current.emit('connectUser', user.user.id)
+        socket.current.on('users',u=>{
+            // console.log(u)
+        })
+    },[user, socket])
+
+    useEffect(()=>{
+        socket.current.on('receive_message', data => {
+            console.log('data: ', data)
+            setReceivedMessages({
+                sender: data.sender,
+                content: data.content,
+                conversationsId: data.conversationsId,
+                profilePicture: data.sender.profilePicture,
+                createdAt: Date.now(),
+                _id: Date.now(),
+            })
+        })
+    },[])
+
+
+
     useEffect(()=>{
         fetchConversavions(user.user.id).then(data => setConversations(data))
     },[user])
-
-    // useEffect(()=>{
-    //     socket.emit('connectUser', user.user.id)
-    // },[user])
+    useEffect(()=>{
+    },[])
 
     useEffect(()=>{
         console.log(receivedMessage)
-       receivedMessage && currentConversation?.members.includes(receivedMessage.sender)&&
+       receivedMessage &&
            setMessages(prev => [...prev, receivedMessage])
-    }, [receivedMessage, currentConversation])
+    }, [receivedMessage])
 
-    useEffect(()=>{
-        socket.emit('connectUser', user.user.id)
-        console.log(socket)
-    },[socket, user])
-
-    useEffect(()=>{
-    socket.on('receive_message', data => {
-        console.log('data: ', data)
-        setReceivedMessages({
-            sender: data.sender,
-            content: data.content,
-            conversationsId: data.conversationsId,
-            profilePicture: data.sender.profilePicture,
-            createdAt: Date.now(),
-            _id: Date.now(),
-        })
-    })
-    },[socket])
 
 
     const handleClick = (id) => {
@@ -75,10 +84,10 @@ const ChatPage = observer(() => {
 
         sendMessage(formData).then(data => setMessages(data))
         setNewMessages('')
-        const sender = currentConversation.members.filter(member => member._id !== user.user.id)
+        const sender = currentConversation.members.filter(member => member._id === user.user.id)
         const receiverId = currentConversation.members.filter(member => member._id !== user.user.id)
           console.log(receiverId[0]._id)
-        socket.emit('send_message', {
+        socket.current.emit('send_message', {
             senderId: user.user.id,
             receiverId: receiverId[0]._id,
             conversationsId: currentConversation._id,

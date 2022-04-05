@@ -14,17 +14,6 @@ const PORT = process.env.PORT || 9000
 
 const app = express()
 
-// Socket
-const socketio = require("socket.io");
-const http = require('http')
-const server = http.createServer(app);
-const io = socketio(server, {
-    cors: {
-        origin: "http://localhost:3000",
-        credentials: true,
-    },
-});
-
 
 app.use(corsMiddleware)
 app.use(express.json())
@@ -38,50 +27,6 @@ app.use(fileUpload({}))
 app.use('/api', router)
 app.use(errorMiddleware)
 
-const users = [];
-
-const addUser = (id, socketId) =>{
-    !users.some(user => user.id === id) &&
-    users.push({id, socketId})
-}
-
-const getUser = (id) =>{
-    return users.find(user => user.id === id)
-}
-
-io.on('connection', (socket) =>{
-    console.log('connected')
-
-    //all connected users
-    socket.on('connectUser', userId =>{
-        addUser(userId, socket.id)
-    })
-    console.log(users)
-
-    //send message
-    socket.on('send_message', ({senderId, receiverId, content, conversationsId, sender})=>{
-        console.log(users)
-        const user = getUser(receiverId)
-        console.log(user)
-        console.log({senderId, receiverId, content, conversationsId, sender})
-
-        io.to(user.socketId).emit('receive_message', {
-            senderId,
-            // receiverId,
-            content,
-            conversationsId,
-            sender
-        })
-    })
-
-
-    // all users events
-    socket.emit("users", users);
-
-    socket.on('disconnect', () => {
-        console.log( 'a user has left the chat')
-    });
-})
 
 const start = async () =>{
     try{
@@ -90,7 +35,7 @@ const start = async () =>{
             useUnifiedTopology: true
         })
 
-        await server.listen(PORT, ()=> console.log(`Server started on ${PORT}`))
+        await app.listen(PORT, ()=> console.log(`Server started on ${PORT}`))
 
     }catch(e){
         console.log(e.message)
